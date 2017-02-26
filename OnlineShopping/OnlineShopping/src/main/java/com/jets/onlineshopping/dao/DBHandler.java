@@ -5,14 +5,40 @@
  */
 package com.jets.onlineshopping.dao;
 
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Eslam
  */
 public class DBHandler {
 
-//    start of Aya
+    Connection connection;
+    PreparedStatement preparedStatement;
+
+    public DBHandler() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/onlineshoppingdb", "root", "");
+            System.out.println("connected");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            connection.close();
+        } finally {
+            super.finalize();
+        }
+    }
     
+//    start of Aya
+
 //    end of Aya
 //    ==============================   
 //    start of Eslam
