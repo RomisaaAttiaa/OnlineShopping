@@ -1,0 +1,101 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.jets.onlineshopping.dto;
+
+/**
+ *
+ * @author Eslam
+ */
+public class Product {
+    private int id;
+    private int price;
+    private int stockQuantity;
+    private String name;
+    private String description;
+    private String category;
+    private String url;
+
+    public Product() {
+    }
+
+    public Product(int price, int stockQuantity, String name, String description, String category, String url) {
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.url = url;
+    }
+
+    public Product(int id, int price, int stockQuantity, String name, String description, String category, String url) {
+        this.id = id;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
+    
+}
