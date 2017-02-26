@@ -18,7 +18,7 @@ public class User {
     private String password;
     private Date birthdate;
     private String job;
-    private int creditLimit;
+    private float creditLimit;
     private String address;
     private String role;
 
@@ -28,7 +28,7 @@ public class User {
     public User() {
     }
 
-    public User(String email, String name, String password, Date birthdate, String job, int creditLimit, String address, String role) {
+    public User(String email, String name, String password, Date birthdate, String job, float creditLimit, String address, String role) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -79,11 +79,11 @@ public class User {
         this.job = job;
     }
 
-    public int getCreditLimit() {
+    public float getCreditLimit() {
         return creditLimit;
     }
 
-    public void setCreditLimit(int creditLimit) {
+    public void setCreditLimit(float creditLimit) {
         this.creditLimit = creditLimit;
     }
 
