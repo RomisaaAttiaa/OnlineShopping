@@ -6,13 +6,13 @@
 package com.jets.onlineshopping.dto;
 
 import java.util.Date;
-import java.util.Enumeration;
 
 /**
  *
  * @author Eslam
  */
 public class User {
+
     private String email;
     private String name;
     private String password;
@@ -21,13 +21,13 @@ public class User {
     private int creditLimit;
     private String address;
     private String role;
-    
+
     private static String ROLE_USER = "user";
     private static String ROLE_ADMIN = "admin";
 
     public User() {
     }
-    
+
     public User(String email, String name, String password, Date birthdate, String job, int creditLimit, String address, String role) {
         this.email = email;
         this.name = name;
@@ -118,6 +118,5 @@ public class User {
     public static void setROLE_ADMIN(String aROLE_ADMIN) {
         ROLE_ADMIN = aROLE_ADMIN;
     }
-    
-    
+
 }

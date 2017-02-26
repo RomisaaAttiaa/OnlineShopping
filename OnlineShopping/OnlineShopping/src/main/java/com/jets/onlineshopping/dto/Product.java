@@ -10,8 +10,9 @@ package com.jets.onlineshopping.dto;
  * @author Eslam
  */
 public class Product {
+
     private int id;
-    private int price;
+    private float price;
     private int stockQuantity;
     private String name;
     private String description;
@@ -21,7 +22,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int price, int stockQuantity, String name, String description, String category, String url) {
+    public Product(float price, int stockQuantity, String name, String description, String category, String url) {
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.name = name;
@@ -30,7 +31,7 @@ public class Product {
         this.url = url;
     }
 
-    public Product(int id, int price, int stockQuantity, String name, String description, String category, String url) {
+    public Product(int id, float price, int stockQuantity, String name, String description, String category, String url) {
         this.id = id;
         this.price = price;
         this.stockQuantity = stockQuantity;
@@ -48,11 +49,11 @@ public class Product {
         this.id = id;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -95,7 +96,5 @@ public class Product {
     public void setUrl(String url) {
         this.url = url;
     }
-    
-    
-    
+
 }

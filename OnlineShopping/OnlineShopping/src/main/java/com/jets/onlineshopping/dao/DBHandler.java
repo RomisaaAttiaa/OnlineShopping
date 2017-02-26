@@ -5,10 +5,12 @@
  */
 package com.jets.onlineshopping.dao;
 
+import com.jets.onlineshopping.dto.Product;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,7 +40,33 @@ public class DBHandler {
     }
     
 //    start of Aya
+    public boolean insertProduct(Product product) {
+        return false;
+    }
 
+    public boolean updateProduct(Product product) {
+        return false;
+    }
+
+    public boolean deleteProduct(int productId) {
+        return false;
+    }
+
+    public void decreaseProductQuantity(int productId, int amount) {
+
+    }
+
+    public Product getProduct(int productId) {
+        return null;
+    }
+
+    public ArrayList<Product> getProducts(String category) {
+        return null;
+    }
+
+    public ArrayList<Product> getProducts(float minPrice, float maxPrice) {
+        return null;
+    }
 //    end of Aya
 //    ==============================   
 //    start of Eslam

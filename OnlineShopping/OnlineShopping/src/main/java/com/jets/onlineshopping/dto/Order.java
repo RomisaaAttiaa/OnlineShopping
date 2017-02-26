@@ -65,6 +65,5 @@ public class Order {
     public void setDate(Date date) {
         this.date = date;
     }
-    
 
 }
