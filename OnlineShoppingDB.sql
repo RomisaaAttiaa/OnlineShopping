@@ -31,7 +31,7 @@ USE `OnlineShoppingDB`;
 CREATE TABLE IF NOT EXISTS `Product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `price` decimal(10,0) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
   `quantity_in_stock` int(11) NOT NULL,
   `category` varchar(20) NOT NULL,
   `description` text NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `password` varchar(20) NOT NULL,
   `DoB` date NOT NULL,
   `job` varchar(20) NOT NULL,
-  `credit_limit` decimal(10,0) NOT NULL,
+  `credit_limit` decimal(10,2) NOT NULL,
   `address` varchar(20) NOT NULL,
   `role` varchar(10) NOT NULL,
   PRIMARY KEY (`email`)
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 
 CREATE TABLE IF NOT EXISTS `Coupon` (
   `id` int(11) NOT NULL,
-  `credit` decimal(10,0) NOT NULL,
+  `credit` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
