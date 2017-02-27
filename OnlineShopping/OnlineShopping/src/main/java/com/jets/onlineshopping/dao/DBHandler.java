@@ -176,7 +176,38 @@ public class DBHandler {
 //    end of Aya
 //    ==============================   
 //    start of Eslam
-
+    //Search in product table
+    public ArrayList<Product> searchProductByCategory(String searchString, String category){
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND category = ?");
+            preparedStatement.setString(1, searchString+"%");
+            preparedStatement.setString(2, category);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next())
+                products.add(new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return products;
+    }
+    
+    public ArrayList<Product> searchProductByPrice(String searchString, float minPrice, float maxPrice){
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND price BETWEEN ? AND ?");
+            preparedStatement.setString(1, searchString+"%");
+            preparedStatement.setFloat(2, minPrice);
+            preparedStatement.setFloat(3, maxPrice);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next())
+                products.add(new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return products;
+    }
+    //Table User
     public boolean insertUser(User user) {
         try {
             preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO user VALUES (?,?,?,?,?,?,?,?)");
