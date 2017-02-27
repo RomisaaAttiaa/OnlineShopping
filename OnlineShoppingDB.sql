@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 --
 
 CREATE TABLE IF NOT EXISTS `Coupon` (
-  `id` int(11) NOT NULL,
+  `id` decimal(16,0) NOT NULL,
   `credit` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
