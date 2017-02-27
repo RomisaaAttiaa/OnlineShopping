@@ -5,6 +5,8 @@
  */
 package com.jets.onlineshopping.dao;
 
+import com.jets.onlineshopping.dto.Coupon;
+import com.jets.onlineshopping.dto.Order;
 import com.jets.onlineshopping.dto.Product;
 import com.jets.onlineshopping.dto.User;
 import com.mysql.jdbc.PreparedStatement;
@@ -12,7 +14,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -266,6 +273,84 @@ public class DBHandler {
         } else {
             return null;
         }
+    }
+    
+    //Table ORDER
+    public boolean insertOrder(Order order, String email){
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO `order` (`user_email`, `product_id`, `quantity`, `date`, `time`) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, order.getProduct().getId());
+            preparedStatement.setInt(3,order.getQuantity());
+            preparedStatement.setDate(4, new java.sql.Date(order.getDate().getTime()));
+            preparedStatement.setTime(5, new Time(order.getDate().getTime()));
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public Order getOrder(int id){
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `order` WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                Date date = new Date(rs.getDate("date").getTime());
+                date.setTime(rs.getTime("time").getTime());
+                return new Order(rs.getInt("id"), getProduct(rs.getInt("product_id")), rs.getInt("quantity"), date);
+            }
+            else
+                return null;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<Order> getOrders(String email){
+        ArrayList<Order> orders = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `order` WHERE user_email = ?");
+            preparedStatement.setString(1, email.toLowerCase());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Date date = new Date(rs.getDate("date").getTime());
+                date.setTime(rs.getTime("time").getTime());
+                orders.add(new Order(rs.getInt("id"), getProduct(rs.getInt("product_id")), rs.getInt("quantity"), date));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return orders;
+    }
+    
+    //Table COUPON
+    public boolean insertCoupon(int credit){
+        long random = (long) (new Random().nextDouble()*100000000L);
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO coupon VALUES(?,?)");
+            preparedStatement.setLong(1,random);
+            preparedStatement.setInt(2, credit);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<Coupon> getCoupons(){
+        ArrayList<Coupon> coupons = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM coupon");
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next())
+                coupons.add(new Coupon(rs.getLong("id"),rs.getInt("credit")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return coupons;
     }
 //    end of Eslam
 }
