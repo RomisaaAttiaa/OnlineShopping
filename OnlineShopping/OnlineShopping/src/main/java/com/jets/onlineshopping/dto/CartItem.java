@@ -11,15 +11,25 @@ package com.jets.onlineshopping.dto;
  */
 public class CartItem {
 
+    private int id;
     private Product product;
     private int quantity;
 
     public CartItem() {
     }
 
-    public CartItem(Product product, int quantity) {
+    public CartItem(int id, Product product, int quantity) {
+        this.id = id;
         this.product = product;
         this.quantity = quantity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Product getProduct() {

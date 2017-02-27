@@ -5,6 +5,7 @@
  */
 package com.jets.onlineshopping.dao;
 
+import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.Product;
 import com.jets.onlineshopping.dto.User;
 import com.mysql.jdbc.PreparedStatement;
@@ -164,6 +165,75 @@ public class DBHandler {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean insertCartItem(CartItem item, String userEmail) {
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO Cart (user_email, product_id, quantity) VALUES (?, ?, ?)");
+
+            preparedStatement.setString(1, userEmail);
+            preparedStatement.setInt(2, item.getProduct().getId());
+            preparedStatement.setInt(3, item.getProduct().getStockQuantity());
+
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<CartItem> getCartItems(String userEmail) {
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT *FROM Cart WHERE user_email = ?");
+            preparedStatement.setString(1, userEmail);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<CartItem> cartItemsList = new ArrayList<>();
+            while (resultSet.next()) {
+                cartItemsList.add(new CartItem(resultSet.getInt("id"), getProduct(resultSet.getInt("product_id")), resultSet.getInt("quantity")));
+            }
+            return cartItemsList;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public boolean updateCartItem(CartItem item, String userEmail) {
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("UPDATE Cart SET user_email = ?, product_id = ?, quantity = ? WHERE id = ?");
+
+            preparedStatement.setString(1, userEmail);
+            preparedStatement.setInt(2, item.getProduct().getId());
+            preparedStatement.setInt(3, item.getProduct().getStockQuantity());
+            preparedStatement.setInt(4, item.getId());
+
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean deleteCartItem(int cartItemId) {
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("DELETE FROM Cart WHERE id = ?");
+            preparedStatement.setInt(1, cartItemId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean deleteAllCartItems(String userEmail) {
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("DELETE FROM Cart WHERE user_email = ?");
+            preparedStatement.setString(1, userEmail);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
 //    end of Aya
