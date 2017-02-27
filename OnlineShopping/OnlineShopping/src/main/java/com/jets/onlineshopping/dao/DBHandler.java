@@ -112,7 +112,7 @@ public class DBHandler {
             preparedStatement.setInt(1, productId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url"));
+            return new Product(resultSet.getInt("id"), resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url"));
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
