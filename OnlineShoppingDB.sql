@@ -72,10 +72,11 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 CREATE TABLE IF NOT EXISTS `Cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_email` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`user_email`,`product_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`user_email`) REFERENCES `User` (`email`) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (`product_id`) REFERENCES `Product` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
