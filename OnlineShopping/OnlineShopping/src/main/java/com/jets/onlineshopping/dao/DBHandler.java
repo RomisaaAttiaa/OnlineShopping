@@ -6,6 +6,7 @@
 package com.jets.onlineshopping.dao;
 
 import com.jets.onlineshopping.dto.CartItem;
+import com.jets.onlineshopping.dto.Order;
 import com.jets.onlineshopping.dto.Product;
 import com.jets.onlineshopping.dto.User;
 import com.mysql.jdbc.PreparedStatement;
@@ -13,7 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -239,7 +243,38 @@ public class DBHandler {
 //    end of Aya
 //    ==============================   
 //    start of Eslam
-
+    //Search in product table
+    public ArrayList<Product> searchProductByCategory(String searchString, String category){
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND category = ?");
+            preparedStatement.setString(1, searchString+"%");
+            preparedStatement.setString(2, category);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next())
+                products.add(new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return products;
+    }
+    
+    public ArrayList<Product> searchProductByPrice(String searchString, float minPrice, float maxPrice){
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND price BETWEEN ? AND ?");
+            preparedStatement.setString(1, searchString+"%");
+            preparedStatement.setFloat(2, minPrice);
+            preparedStatement.setFloat(3, maxPrice);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next())
+                products.add(new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return products;
+    }
+    //Table User
     public boolean insertUser(User user) {
         try {
             preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO user VALUES (?,?,?,?,?,?,?,?)");
@@ -337,5 +372,71 @@ public class DBHandler {
             return null;
         }
     }
+    
+    //Table ORDER
+    public boolean insertOrder(Order order, String email){
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO `order` (`user_email`, `product_id`, `quantity`, `date`, `time`) VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, order.getProduct().getId());
+            preparedStatement.setInt(3,order.getQuantity());
+            preparedStatement.setDate(4, new java.sql.Date(order.getDate().getTime()));
+            preparedStatement.setTime(5, new Time(order.getDate().getTime()));
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public Order getOrder(int id){
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `order` WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                Date date = new Date(rs.getDate("date").getTime());
+                date.setTime(rs.getTime("time").getTime());
+                return new Order(rs.getInt("id"), getProduct(rs.getInt("product_id")), rs.getInt("quantity"), date);
+            }
+            else
+                return null;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<Order> getOrders(String email){
+        ArrayList<Order> orders = new ArrayList<>();
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `order` WHERE user_email = ?");
+            preparedStatement.setString(1, email.toLowerCase());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Date date = new Date(rs.getDate("date").getTime());
+                date.setTime(rs.getTime("time").getTime());
+                orders.add(new Order(rs.getInt("id"), getProduct(rs.getInt("product_id")), rs.getInt("quantity"), date));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return orders;
+    }
+    
+    //Table COUPON
+    public boolean insertCoupon(int credit){
+        long random = (long) (new Random().nextDouble()*100000000L);
+        try {
+            preparedStatement = (PreparedStatement) connection.prepareStatement("INSERT INTO coupon VALUES(?,?)");
+            preparedStatement.setLong(1,random);
+            preparedStatement.setInt(2, credit);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
 //    end of Eslam
 }
