@@ -34,6 +34,11 @@ public class Order {
         this.date = date;
     }
 
+    public Order(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+ 
     public int getId() {
         return id;
     }

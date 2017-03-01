@@ -41,6 +41,15 @@ public class Product {
         this.url = url;
     }
 
+    public Product(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Product(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

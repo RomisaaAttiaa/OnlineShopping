@@ -1,5 +1,8 @@
 com\jets\onlineshopping\dto\CartItem.class
 com\jets\onlineshopping\dto\Order.class
+com\jets\onlineshopping\dto\Coupon.class
+com\jets\onlineshopping\controller\BuyServlet.class
 com\jets\onlineshopping\dto\Product.class
 com\jets\onlineshopping\dao\DBHandler.class
 com\jets\onlineshopping\dto\User.class
+com\jets\onlineshopping\controller\AddCartServlet.class
