@@ -146,11 +146,11 @@
                 <div class="row">
                     <div class="span3">
                         <h5>ACCOUNT</h5>
-                        <a href="login.html">YOUR ACCOUNT</a>
-                        <a href="login.html">PERSONAL INFORMATION</a> 
-                        <a href="login.html">ADDRESSES</a> 
-                        <a href="login.html">DISCOUNT</a>  
-                        <a href="login.html">ORDER HISTORY</a>
+                        <a href="login.jsp">YOUR ACCOUNT</a>
+                        <a href="login.jsp">PERSONAL INFORMATION</a> 
+                        <a href="login.jsp">ADDRESSES</a> 
+                        <a href="login.jsp">DISCOUNT</a>  
+                        <a href="login.jsp">ORDER HISTORY</a>
                     </div>
                     <div class="span3">
                         <h5>INFORMATION</h5>
