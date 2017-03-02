@@ -371,7 +371,7 @@ public class DBHandler {
     }
 
     public User checkLogin(String email, String password) {
-        if (getUser(email).getPassword().equals(password)) {
+        if (getUser(email) != null && getUser(email).getPassword().equals(password)) {
             return getUser(email);
         } else {
             return null;

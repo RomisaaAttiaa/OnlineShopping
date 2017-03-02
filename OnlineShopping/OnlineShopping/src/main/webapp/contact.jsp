@@ -1,4 +1,3 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,10 +31,7 @@
         <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
         <style type="text/css" id="enject"></style>
     </head>
-    <body>
-
-        <c:set var="commingUrl" value="contact.jsp" scope="session"/>
-        
+    <body>        
         <div id="header">
             <div class="container">
                 <div id="welcomeLine" class="row">
@@ -85,21 +81,22 @@
                                         <h3>Login Block</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal loginFrm">
+                                        <form action="login" method="POST" class="form-horizontal loginFrm">
                                             <div class="control-group">								
-                                                <input type="text" id="inputEmail" placeholder="Email">
+                                                <input type="text" name="email" id="inputEmail" placeholder="Email">
                                             </div>
                                             <div class="control-group">
-                                                <input type="password" id="inputPassword" placeholder="Password">
+                                                <input type="password" name="password" id="inputPassword" placeholder="Password">
                                             </div>
                                             <div class="control-group">
                                                 <label class="checkbox">
                                                     <input type="checkbox"> Remember me
                                                 </label>
                                             </div>
-                                        </form>		
-                                        <button type="submit" class="btn btn-success">Sign in</button>
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                            <input type="hidden" name="refererUri" value="${pageContext.request.requestURI}"/>
+                                            <button type="submit" class="btn btn-success">Sign in</button>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                        </form>	
                                     </div>
                                 </div>
                             </li>

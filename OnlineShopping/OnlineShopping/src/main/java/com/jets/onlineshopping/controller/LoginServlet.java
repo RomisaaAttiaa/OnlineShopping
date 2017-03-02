@@ -22,29 +22,37 @@ import javax.servlet.http.HttpSession;
  *
  * @author Aya
  */
-
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest reqest, HttpServletResponse response) throws ServletException, IOException {
         DBHandler db = new DBHandler();
-        String userEmail = reqest.getParameter("email");
-        User user = db.checkLogin(userEmail, reqest.getParameter("password"));
-        if (user != null) {
-            HttpSession session = reqest.getSession();
-            session.setAttribute("user", user);
-            ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-            Iterator<CartItem> iterator = cartItems.iterator();
-            while (iterator.hasNext()) {
-                CartItem cartItem = iterator.next();
-                session.setAttribute("Cart #" + cartItem.getId(), cartItem);
-            }
-            db.deleteAllCartItems(userEmail);
-            reqest.getRequestDispatcher(reqest.getParameter("url")).forward(reqest, response);
+        String refererUri = reqest.getParameter("refererUri");
+
+        // Check if request comes from LoginServlet url
+        if (refererUri.equals(reqest.getRequestURI())) {
+            response.sendRedirect("home.jsp");
         } else {
-            response.sendRedirect("login.jsp");
+            String userEmail = reqest.getParameter("email");
+            User user = db.checkLogin(userEmail, reqest.getParameter("password"));
+            if (user != null) {
+                HttpSession session = reqest.getSession();
+                session.setAttribute("user", user);
+                
+                ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
+                Iterator<CartItem> iterator = cartItems.iterator();
+                while (iterator.hasNext()) {
+                    CartItem cartItem = iterator.next();
+                    session.setAttribute("Cart#" + cartItem.getId(), cartItem);
+                }
+                db.deleteAllCartItems(userEmail);
+                
+                reqest.getRequestDispatcher(reqest.getParameter("refererUri")).forward(reqest, response);
+            } else {
+                System.err.println("Wrong email or password");
+            }
         }
     }
-
+    
 }

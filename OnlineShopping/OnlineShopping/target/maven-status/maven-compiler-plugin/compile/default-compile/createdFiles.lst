@@ -5,5 +5,5 @@ com/jets/onlineshopping/dao/DBHandler.class
 com/jets/onlineshopping/dto/Order.class
 com/jets/onlineshopping/dto/CartItem.class
 com/jets/onlineshopping/dto/User.class
-.netbeans_automatic_build
+com/jets/onlineshopping/controller/LoginServlet.class
 com/jets/onlineshopping/dto/Coupon.class
