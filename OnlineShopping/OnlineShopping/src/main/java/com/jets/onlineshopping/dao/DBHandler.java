@@ -31,9 +31,10 @@ public class DBHandler {
 
     public DBHandler() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost/onlineshoppingdb", "root", "");
             System.out.println("connected");
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }

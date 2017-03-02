@@ -31,7 +31,8 @@
         <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
         <style type="text/css" id="enject"></style>
     </head>
-    <body>        
+    <body>
+        
         <div id="header">
             <div class="container">
                 <div id="welcomeLine" class="row">
@@ -93,7 +94,7 @@
                                                     <input type="checkbox"> Remember me
                                                 </label>
                                             </div>
-                                            <input type="hidden" name="refererUri" value="${pageContext.request.requestURI}"/>
+                                            <input type="hidden" name="refererUri" value="${pageContext.request.servletPath}"/>
                                             <button type="submit" class="btn btn-success">Sign in</button>
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                         </form>	
