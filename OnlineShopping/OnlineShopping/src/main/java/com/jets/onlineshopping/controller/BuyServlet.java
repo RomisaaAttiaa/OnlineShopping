@@ -12,7 +12,10 @@ import com.jets.onlineshopping.dto.Product;
 import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,33 +47,40 @@ public class BuyServlet extends HttpServlet {
         ArrayList<CartItem> outOfStockProducts = new ArrayList<>();
         //check if user logged in 
         User user = (User) session.getAttribute("logged");
-        if(user != null){    //user logged in 
+        if (user != null) {    //user logged in 
             //check if there is products on session
             ArrayList<CartItem> cartProducts = (ArrayList<CartItem>) session.getAttribute("products");
-            if(cartProducts.size() >0){ //there're products in the cart 
-                //add them to db 
-                for (CartItem cartProduct : cartProducts) {
-                    Product p = db.getProduct(cartProduct.getProduct().getId());
-                    if(p.getStockQuantity() >= cartProduct.getQuantity()){  //there's enough quantity in stock
-                        //insert products into database
-                        db.insertOrder(new Order(cartProduct.getProduct(), cartProduct.getQuantity()), user.getEmail());
-                    }else{  //there's not enough quantity in stock
-                        cartProduct.setQuantity(p.getStockQuantity());
-                        outOfStockProducts.add(cartProduct);
+            if (cartProducts != null) {
+                if (cartProducts.size() > 0) { //there're products in the cart 
+                    //add them to db 
+                    for (CartItem cartProduct : cartProducts) {
+                        Product p = db.getProduct(cartProduct.getProduct().getId());
+                        int stockQuantity = p.getStockQuantity();
+                        if (stockQuantity >= cartProduct.getQuantity()) {  //there's enough quantity in stock
+                            //insert products into database
+                            db.insertOrder(new Order(cartProduct.getProduct(), cartProduct.getQuantity(), new Date()), user.getEmail());
+                            //decrease quantity instock in db 
+                            p.setStockQuantity(stockQuantity - cartProduct.getQuantity());
+                            db.updateProduct(p);
+                        } else {  //there's not enough quantity in stock
+                            cartProduct.setQuantity(p.getStockQuantity());
+                            outOfStockProducts.add(cartProduct);
+                        }
+                    }
+
+                    if (outOfStockProducts.size() == 0) {
+                        //remove products from session 
+                        session.removeAttribute("products");
+                        //response.sendRedirect("HomeServlet");
+                        response.sendRedirect("home.jsp");  //Testing Line
+                    } else {
+                        //update array in session 
+                        session.setAttribute("products", outOfStockProducts);
+                        response.sendRedirect("BuyOutOfStockServlet");
                     }
                 }
-                
-                if(outOfStockProducts.size() == 0){
-                    //remove products from session 
-                    session.removeAttribute("products");
-                    response.sendRedirect("HomeServlet");
-                }else{   
-                    //update array in session 
-                    session.setAttribute("products", outOfStockProducts);
-                    response.sendRedirect("BuyOutOfStockServlet");
-                }
             }
-        }else{  //user not logged in 
+        } else {  //user not logged in 
             response.sendRedirect("LoginServlet");
         }
     }

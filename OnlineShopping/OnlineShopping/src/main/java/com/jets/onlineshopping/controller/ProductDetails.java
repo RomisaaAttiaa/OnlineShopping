@@ -8,16 +8,10 @@ package com.jets.onlineshopping.controller;
 import com.jets.onlineshopping.dao.DBHandler;
 import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.Product;
-import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author toqae
  */
-@WebServlet(name = "AddCartServlet", urlPatterns = {"/AddCartServlet"})
-public class AddCartServlet extends HttpServlet {
+@WebServlet(name = "ProductDetails", urlPatterns = {"/ProductDetails"})
+public class ProductDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,34 +37,35 @@ public class AddCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        ArrayList<CartItem> cartProducts = (ArrayList<CartItem>) session.getAttribute("products");
-        
-        CartItem cItem = new CartItem(new Product(Integer.parseInt(request.getParameter("pId"))),Integer.parseInt(request.getParameter("pQuantity")));
-        if(cartProducts == null){   //no such attribute on session
-            //intialize array
-            cartProducts = new ArrayList<>();
-        }   
-        //add item to array 
-        cartProducts.add(cItem);
-        //add array on session 
-        session.setAttribute("products", cartProducts);
-        //To redirect to same page
-        String referer = request.getHeader("Referer");     
-        response.sendRedirect(referer);
-        //response.sendRedirect("home.jsp");  //Testing line
-        
-        /*Testing block*/
         DBHandler db = new DBHandler();
-        SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            User user = new User("toqa@gmail.com","toqa1","t123", dateformat3.parse("21/09/1993"),"Engineer", 500, "Cairo", "user");
-            db.insertUser(user);
-            session.setAttribute("logged", user);
-        } catch (ParseException ex) {
-            Logger.getLogger(AddCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        //get product id from request
+        int productId = Integer.parseInt(request.getParameter("pId"));
+        //get product details from db 
+        Product p =db.getProduct(productId);
+        //put it on the response to be used by product_details.jsp
+        request.setAttribute("product_details",p);
+
+        //related products  //till now i get all products we need function in db to get certain amount of products or add products on session 
+        ArrayList<Product> relatedProductsFromDB = db.getProducts();
+        ArrayList<Product> relatedProducts = new ArrayList<>();
+        
+        int numOfRelatedProducts;
+        if(relatedProductsFromDB.size()> 6){
+            numOfRelatedProducts = 6;
+        }else{
+            numOfRelatedProducts = relatedProductsFromDB.size();
         }
-        /*End of Testing Block*/
+        for (int i = 0; i < numOfRelatedProducts; i++) {
+            relatedProducts.add(relatedProductsFromDB.get(i));
+        }
+        request.setAttribute("related_products", relatedProducts);
+        //go to jsp page 
+        RequestDispatcher rd = request.getRequestDispatcher("product_details.jsp");
+        rd.forward(request, response);
+        
+        
+        
+        
         
     }
 

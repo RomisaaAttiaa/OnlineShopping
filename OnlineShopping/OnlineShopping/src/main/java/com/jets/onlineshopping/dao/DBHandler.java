@@ -19,6 +19,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,13 +30,16 @@ public class DBHandler {
 
     Connection connection;
     PreparedStatement preparedStatement;
-
+ 
     public DBHandler() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost/onlineshoppingdb", "root", "");
             System.out.println("connected");
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
