@@ -36,10 +36,8 @@ public class DBHandler {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost/onlineshoppingdb", "root", "");
             System.out.println("connected");
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -376,7 +374,7 @@ public class DBHandler {
     }
 
     public User checkLogin(String email, String password) {
-        if (getUser(email).getPassword().equals(password)) {
+        if (getUser(email) != null && getUser(email).getPassword().equals(password)) {
             return getUser(email);
         } else {
             return null;
