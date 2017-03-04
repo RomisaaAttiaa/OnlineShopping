@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             String userEmail = request.getParameter("email");
             User user = db.checkLogin(userEmail, request.getParameter("password"));
             if (user != null) {
-                HttpSession session = request.getSession();
+                HttpSession session = request.getSession(true);
                 session.setAttribute("user", user);
 
                 ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
