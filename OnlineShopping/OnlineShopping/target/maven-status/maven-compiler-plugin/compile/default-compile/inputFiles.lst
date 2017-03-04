@@ -1,11 +1,11 @@
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dto/User.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/controller/SignUpServlet.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dao/DBHandler.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dto/CartItem.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/controller/AddCartServlet.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/controller/BuyServlet.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dto/Order.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/controller/LoginServlet.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dto/Product.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/controller/ProductDetails.java
-/Users/aya/NetBeansProjects/OnlineShopping/OnlineShopping/OnlineShopping/src/main/java/com/jets/onlineshopping/dto/Coupon.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\LoginServlet.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\CartItem.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Product.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dao\DBHandler.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Coupon.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Order.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\AddCartServlet.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\User.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\SignUpServlet.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\BuyServlet.java
+E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\ProductDetails.java

@@ -1,18 +1,12 @@
 <%-- 
-    Document   : cart
-    Created on : 01-Mar-2017, 09:15:58
+    Document   : home
+    Created on : 01-Mar-2017, 20:00:39
     Author     : toqae
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="com.jets.onlineshopping.dto.Product"%>
-<%@page import="com.jets.onlineshopping.dto.CartItem"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <title>Bootshop online Shopping cart</title>
@@ -45,142 +39,122 @@
         <style type="text/css" id="enject"></style>
     </head>
     <body>
-        <div id="header">
+
+        <div id="mainBody">
             <div class="container">
-                <div id="welcomeLine" class="row">
-                    <div class="span6">Welcome!<strong> User</strong></div>
-                </div>
-                <!-- Navbar ================================================== -->
-                <div id="logoArea" class="navbar">
-                    <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <div class="navbar-inner">
-                        <a class="brand" href="home.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-                        <form class="form-inline navbar-search" method="post" action="products.html" >
-                            <input id="srchFld" class="srchTxt" type="text" />
-                            <select class="srchTxt">
-                                <option>All</option>
-                                <option>CLOTHES </option>
-                                <option>FOOD AND BEVERAGES </option>
-                                <option>HEALTH & BEAUTY </option>
-                                <option>SPORTS & LEISURE </option>
-                                <option>BOOKS & ENTERTAINMENTS </option>
-                            </select> 
-                            <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-                        </form>
-                        <ul id="topMenu" class="nav pull-right">
-                            <li class=""><a href="special_offer.html">Specials Offer</a></li>
-                            <li class=""><a href="normal.html">Delivery</a></li>
-                            <li class=""><a href="contact.html">Contact</a></li>
-                            <li class="">
-                                <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-                                <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
-                                        <h3>Login Block</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="form-horizontal loginFrm">
-                                            <div class="control-group">								
-                                                <input type="text" id="inputEmail" placeholder="Email">
-                                            </div>
-                                            <div class="control-group">
-                                                <input type="password" id="inputPassword" placeholder="Password">
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="checkbox">
-                                                    <input type="checkbox"> Remember me
-                                                </label>
-                                            </div>
-                                        </form>		
-                                        <button type="submit" class="btn btn-success">Sign in</button>
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <div class="row">
+                    <%@include file="logged_header.jsp" %>
+                    <!-- Sidebar ================================================== -->
+                    <div id="sidebar" class="span3">
+                        <div class="well well-small"><a id="myCart" href="cart.jsp"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+                        <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                            <li class="subMenu open"><a> ELECTRONICS</a></li>
+                            <li class="subMenu"><a> CLOTHES</a></li>
+                            <li class="subMenu"><a>FOOD AND BEVERAGES</a></li>
+                            <li><a href="products.html">HEALTH & BEAUTY </a></li>
+                            <li><a href="products.html">SPORTS & LEISURE </a></li>
+                            <li><a href="products.html">BOOKS & ENTERTAINMENTS </a></li>
+                        </ul>
+                        <br/>	
+                    </div>
+                    <!-- Sidebar end=============================================== -->
+                    <div class="span9">		
+                        <h4>Category Products </h4>
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/6.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+
+                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                     </div>
                                 </div>
                             </li>
-                        </ul>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/7.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/9.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <p> 
+                                            Lorem Ipsum is simply dummy text. 
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>	
+
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Header End====================================================================== -->
-        <div id="mainBody">
-            <div class="container">
-                <div class="row">
-
-                    <div class="span9">
-                        <ul class="breadcrumb">
-                            <li><a href="home.html">Home</a> <span class="divider">/</span></li>
-                            <li class="active"> SHOPPING CART</li>
-                        </ul>
-                        <h3>  SHOPPING CART [ <small><c:out value="${fn:length(sessionScope.products)}"/> Item(s) </small>]<a href="BuyServlet" class="btn btn-large pull-right">BUY</a></h3>	
-                        <hr class="soft"/>	
-
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Description</th>
-                                    <th>Quantity/Update</th>
-                                    <th>Price</th>
-
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-             
-             <c:set var="count" value="${0}" /> 
-             
-             <c:forEach items="${sessionScope.products}" var="item">
-             <form action="RemoveCartItem" method="post">
-                 <tr>
-                                    <td> <img width="60" src="themes/images/products/4.jpg" alt=""/></td>
-                                    <td><c:out value="${item.product.name}"/><br/>
-                                         <c:out value="${item.product.description}"/></td>
-                                    <td>
-                                        <div class="input-append"><input class="span1" style="max-width:34px" placeholder="${item.quantity}" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
-                                            <input type="hidden" name="pId" value="${item.product.id}"/>
-                                        </div>
-                                    </td>
-                                    <td><c:out value="${item.product.price}"/></td>          
-             
-                                    <c:set var="count" value="${count+item.quantity*item.product.price}" />
-                 </tr>
-             </form>
-             </c:forEach> 
-                              
-                                <tr>
-                                    <td colspan="4" style="text-align:right"><strong>TOTAL =</strong>  </td>
-                                    <td class="label label-important" style="display:block"> <strong> <c:out value="${count}" /> </strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-                        <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
-
-                    </div>
-                </div></div>
-        </div>
-        <!-- MainBody End ============================= -->
         <!-- Footer ================================================================== -->
         <div  id="footerSection">
             <div class="container">
                 <div class="row">
                     <div class="span3">
                         <h5>ACCOUNT</h5>
-                        <a href="login.html">YOUR ACCOUNT</a>
-                        <a href="login.html">PERSONAL INFORMATION</a> 
-                        <a href="login.html">ADDRESSES</a> 
-                        <a href="login.html">DISCOUNT</a>  
-                        <a href="login.html">ORDER HISTORY</a>
+                        <a href="login.jsp">YOUR ACCOUNT</a>
+                        <a href="login.jsp">PERSONAL INFORMATION</a> 
+                        <a href="login.jsp">ADDRESSES</a> 
+                        <a href="login.jsp">DISCOUNT</a>  
+                        <a href="login.jsp">ORDER HISTORY</a>
                     </div>
                     <div class="span3">
                         <h5>INFORMATION</h5>
-                        <a href="contact.html">CONTACT</a>  
+                        <a href="contact.jsp">CONTACT</a>  
                         <a href="register.html">REGISTRATION</a>  
                         <a href="legal_notice.html">LEGAL NOTICE</a>  
                         <a href="tac.html">TERMS AND CONDITIONS</a> 

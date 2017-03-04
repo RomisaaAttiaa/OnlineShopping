@@ -1,17 +1,4 @@
-<%-- 
-    Document   : cart
-    Created on : 01-Mar-2017, 09:15:58
-    Author     : toqae
---%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="com.jets.onlineshopping.dto.Product"%>
-<%@page import="com.jets.onlineshopping.dto.CartItem"%>
-<%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -49,6 +36,17 @@
             <div class="container">
                 <div id="welcomeLine" class="row">
                     <div class="span6">Welcome!<strong> User</strong></div>
+                    <div class="span6">
+                        <div class="pull-right">
+                            <a href="product_summary.html"><span class="">Fr</span></a>
+                            <a href="product_summary.html"><span class="">Es</span></a>
+                            <span class="btn btn-mini">En</span>
+                            <a href="product_summary.html"><span>&pound;</span></a>
+                            <span class="btn btn-mini">$155.00</span>
+                            <a href="product_summary.html"><span class="">$</span></a>
+                            <a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart </span> </a> 
+                        </div>
+                    </div>
                 </div>
                 <!-- Navbar ================================================== -->
                 <div id="logoArea" class="navbar">
@@ -79,7 +77,7 @@
                                 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
                                 <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h3>Login Block</h3>
                                     </div>
                                     <div class="modal-body">
@@ -87,7 +85,8 @@
                                             <div class="control-group">								
                                                 <input type="text" id="inputEmail" placeholder="Email">
                                             </div>
-                                            <div class="control-group">
+                                            <div class="
+                                                 control-group">
                                                 <input type="password" id="inputPassword" placeholder="Password">
                                             </div>
                                             <div class="control-group">
@@ -110,60 +109,153 @@
         <div id="mainBody">
             <div class="container">
                 <div class="row">
-
+                    <!-- Sidebar ================================================== -->
+                    <div id="sidebar" class="span3">
+                        <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+                        <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                            <li class="subMenu open"><a> ELECTRONICS [230]</a>
+                                <ul>
+                                    <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
+                                </ul>
+                            </li>
+                            <li class="subMenu"><a> CLOTHES [840] </a>
+                                <ul style="display:none">
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>	
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>												
+                                </ul>
+                            </li>
+                            <li class="subMenu"><a>FOOD AND BEVERAGES [1000]</a>
+                                <ul style="display:none">
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>	
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>												
+                                    <li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>												
+                                </ul>
+                            </li>
+                            <li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
+                            <li><a href="products.html">SPORTS & LEISURE [58]</a></li>
+                            <li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
+                        </ul>
+                        <br/>
+                        <div class="thumbnail">
+                            <img src="themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera"/>
+                            <div class="caption">
+                                <h5>Panasonic</h5>
+                                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                            </div>
+                        </div><br/>
+                        <div class="thumbnail">
+                            <img src="themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
+                            <div class="caption">
+                                <h5>Kindle</h5>
+                                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                            </div>
+                        </div><br/>
+                        <div class="thumbnail">
+                            <img src="themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                            <div class="caption">
+                                <h5>Payment Methods</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar end=============================================== -->
                     <div class="span9">
                         <ul class="breadcrumb">
                             <li><a href="home.html">Home</a> <span class="divider">/</span></li>
-                            <li class="active"> SHOPPING CART</li>
+                            <li class="active">Registration</li>
                         </ul>
-                        <h3>  SHOPPING CART [ <small><c:out value="${fn:length(sessionScope.products)}"/> Item(s) </small>]<a href="BuyServlet" class="btn btn-large pull-right">BUY</a></h3>	
-                        <hr class="soft"/>	
+                        <h3> Registration</h3>	
+                        <div class="well">
+                            <!--
+                            <div class="alert alert-info fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div>
+                            <div class="alert fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div>
+                             <div class="alert alert-block alert-error fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div> -->
+                            <form class="form-horizontal" action="signup" method="POST">
+                                <h4>Your personal information</h4>
 
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Description</th>
-                                    <th>Quantity/Update</th>
-                                    <th>Price</th>
+                                <input type="hidden" name="refererUri" value="${header.referer}"/>
 
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-             
-             <c:set var="count" value="${0}" /> 
-             
-             <c:forEach items="${sessionScope.products}" var="item">
-             <form action="RemoveCartItem" method="post">
-                 <tr>
-                                    <td> <img width="60" src="themes/images/products/4.jpg" alt=""/></td>
-                                    <td><c:out value="${item.product.name}"/><br/>
-                                         <c:out value="${item.product.description}"/></td>
-                                    <td>
-                                        <div class="input-append"><input class="span1" style="max-width:34px" placeholder="${item.quantity}" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
-                                            <input type="hidden" name="pId" value="${item.product.id}"/>
-                                        </div>
-                                    </td>
-                                    <td><c:out value="${item.product.price}"/></td>          
-             
-                                    <c:set var="count" value="${count+item.quantity*item.product.price}" />
-                 </tr>
-             </form>
-             </c:forEach> 
-                              
-                                <tr>
-                                    <td colspan="4" style="text-align:right"><strong>TOTAL =</strong>  </td>
-                                    <td class="label label-important" style="display:block"> <strong> <c:out value="${count}" /> </strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <div class="control-group">
+                                    <label class="control-label" for="input_email">Email <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="email" id="input_email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputFname">Name <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="name" id="inputFname" placeholder="Name">
+                                    </div>
+                                </div>	  
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword1">Password <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="password" name="password" id="inputPassword1" placeholder="Password">
+                                    </div>
+                                </div>	  
+                                <div class="control-group">
+                                    <label class="control-label" for="inputDate">Date of Birth <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="date" name="birthdate" id="inputDate">
+                                    </div>
+                                </div>
+                                <div class="alert alert-block alert-error fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                </div>	
+                                <div class="control-group">
+                                    <label class="control-label" for="inputJob">Job <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="job" id="inputJob" placeholder="Job">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="address">Address<sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="address" id="address" placeholder="Adress"> <span>Street address, P.O. box, company name, c/o</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputCreditLimit">Credit Limit <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="credit_limit" id="inputCreditLimit" placeholder="Credit Limit">
+                                    </div>
+                                </div><p><sup>*</sup>Required field	</p>
 
-                        <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-                        <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input type="hidden" name="email_create" value="1">
+                                        <input type="hidden" name="is_new_customer" value="1">
+                                        <input class="btn btn-large btn-success" type="submit" value="Register">
+                                    </div>
+                                </div>		
+                            </form>
+                        </div>
 
                     </div>
-                </div></div>
+                </div>
+            </div>
         </div>
         <!-- MainBody End ============================= -->
         <!-- Footer ================================================================== -->
