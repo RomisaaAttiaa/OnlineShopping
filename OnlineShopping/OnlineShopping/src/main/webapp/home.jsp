@@ -4,12 +4,19 @@
     Author     : toqae
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Bootshop online Shopping cart</title>
+        <title>Online Shopping cart</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -43,17 +50,36 @@
         <div id="mainBody">
             <div class="container">
                 <div class="row">
-                    <%@include file="logged_header.jsp" %>
+                    <c:if test="${empty sessionScope.logged}">
+                        <jsp:include page="logged_header.jsp"/>
+                    </c:if>
+
+                    <c:if test="${!empty sessionScope.logged}">
+                        <jsp:include page="logged_header.jsp"/>
+                    </c:if>
+
                     <!-- Sidebar ================================================== -->
                     <div id="sidebar" class="span3">
-                        <div class="well well-small"><a id="myCart" href="cart.jsp"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+                        <div class="well well-small"><a id="myCart" href="cart.jsp"><img src="themes/images/ico-cart.png" alt="cart">
+                                <c:if test="${!empty sessionScope.products}">
+                                    <c:out value="${fn:length(sessionScope.products)}"/>
+                                </c:if>
+
+                                <c:if test="${empty sessionScope.products}">
+                                    0
+                                </c:if>
+                                Items in your cart  
+
+                                <c:if test="${!empty sessionScope.logged}">
+                                    <span class="badge badge-warning pull-right"><c:out value="${logged.creditLimit}"/> $</span>
+                                </c:if>
+
+                            </a></div>
                         <ul id="sideManu" class="nav nav-tabs nav-stacked">
-                            <li class="subMenu open"><a> ELECTRONICS</a></li>
-                            <li class="subMenu"><a> CLOTHES</a></li>
-                            <li class="subMenu"><a>FOOD AND BEVERAGES</a></li>
-                            <li><a href="products.html">HEALTH & BEAUTY </a></li>
-                            <li><a href="products.html">SPORTS & LEISURE </a></li>
-                            <li><a href="products.html">BOOKS & ENTERTAINMENTS </a></li>
+                            <li><a href="HomeServlet"> All</a></li>
+                            <li><a href="HomeServlet?category=electronics"> ELECTRONICS</a></li>
+                            <li><a href="HomeServlet?category=clothes"> CLOTHES</a></li>
+                            <li><a href="HomeServlet?category=books">BOOKS</a></li>
                         </ul>
                         <br/>	
                     </div>
@@ -61,79 +87,83 @@
                     <div class="span9">		
                         <h4>Category Products </h4>
                         <ul class="thumbnails">
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/6.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
+                            <c:forEach items="${requestScope.homeProducts}" var="product">
 
-                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                <li class="span3">
+                                    <div class="thumbnail">
+                                        <a  href='product_details.html?pId="${product.id}"'><img src="${product.url}" alt=""/></a>
+                                        <div class="caption">
+                                            <h5><c:out value="${product.name}"/></h5>
+                                            <p> 
+                                                <c:out value="${product.description}"/>
+                                            </p>
+
+                                            <h4 style="text-align:center"><a class="btn" href="product_details.html?pId=${product.id}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="AddCartServlet?pId=${product.id}">Add to <i class="icon-shopping-cart"></i></a></h4>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/7.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=1"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="ProductDetails?pId=1"><img src="themes/images/products/9.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
-                                    <div class="caption">
-                                        <h5>Product name</h5>
-                                        <p> 
-                                            Lorem Ipsum is simply dummy text. 
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            </c:forEach>
+
+                            <!--                            <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a  href="product_details.html"><img src="themes/images/products/7.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5>Product name</h5>
+                                                                    <p> 
+                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    </p>
+                                                                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5>Product name</h5>
+                                                                    <p> 
+                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    </p>
+                                                                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a  href="product_details.html"><img src="themes/images/products/9.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5>Product name</h5>
+                                                                    <p> 
+                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    </p>
+                                                                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5>Product name</h5>
+                                                                    <p> 
+                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    </p>
+                                                                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5>Product name</h5>
+                                                                    <p> 
+                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    </p>
+                                                                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>-->
                         </ul>	
 
                     </div>

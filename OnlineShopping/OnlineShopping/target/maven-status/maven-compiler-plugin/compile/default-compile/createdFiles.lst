@@ -6,5 +6,5 @@ com\jets\onlineshopping\controller\BuyServlet.class
 com\jets\onlineshopping\dto\Product.class
 com\jets\onlineshopping\dao\DBHandler.class
 com\jets\onlineshopping\dto\User.class
-.netbeans_automatic_build
+com\jets\onlineshopping\controller\LoginServlet.class
 com\jets\onlineshopping\controller\AddCartServlet.class
