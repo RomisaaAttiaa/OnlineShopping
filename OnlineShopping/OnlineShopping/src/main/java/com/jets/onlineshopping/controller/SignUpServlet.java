@@ -6,24 +6,23 @@
 package com.jets.onlineshopping.controller;
 
 import com.jets.onlineshopping.dao.DBHandler;
-import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Aya
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SignUpServlet", urlPatterns = {"/signup"})
+public class SignUpServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,32 +35,31 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBHandler db = new DBHandler();
         String refererUri = request.getParameter("refererUri");
 
-        // Check if request comes from LoginServlet url
+        // Check if request comes from SignUpServlet url
         if (refererUri != null) {
-            String userEmail = request.getParameter("email");
-            User user = db.checkLogin(userEmail, request.getParameter("password"));
-            if (user != null) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("user", user);
+            try {
+                String email = request.getParameter("email");
+                String name = request.getParameter("name");
+                String password = request.getParameter("password");
 
-                ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-                Iterator<CartItem> iterator = cartItems.iterator();
-                while (iterator.hasNext()) {
-                    CartItem cartItem = iterator.next();
-                    session.setAttribute("Cart#" + cartItem.getId(), cartItem);
-                }
-                db.deleteAllCartItems(userEmail);
+                SimpleDateFormat format = new SimpleDateFormat("mm-dd-yyyy");
+                Date birthdate = format.parse(request.getParameter("birthdate"));
 
-                request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
-            } else {
-                // Wrong email or password
-                response.sendRedirect("home.jsp");
+                String job = request.getParameter("job");
+                String address = request.getParameter("address");
+                float creditLimit = Float.parseFloat(request.getParameter("credit_limit"));
+
+                new DBHandler().insertUser(new User(email, name, password, birthdate, job, creditLimit, address, User.getROLE_USER()));
+
+                refererUri = refererUri.substring(refererUri.lastIndexOf('/') + 1);
+                request.getRequestDispatcher(refererUri).forward(request, response);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
             }
         } else {
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("register.jsp");
         }
     }
 

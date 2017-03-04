@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <body>
+    <body>
         <div id="header">
             <div class="container">
                 <!-- Navbar ================================================== -->
@@ -34,6 +34,10 @@
                         <ul id="topMenu" class="nav pull-right">
                             <li class=""><a href="contact.html">Contact-Us</a></li>
                             <li class="">
+                                <!-- ================== Sign up =======================-->
+                                <a href="register.jsp" role="button" style="padding-right:0"><span class="btn btn-large btn-success">Sign up</span></a>
+                            </li>
+                            <li class="">
                                 <!-- ================== LOGIN =======================-->
                                 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
                                 <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
@@ -42,21 +46,22 @@
                                         <h3>Login Block</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal loginFrm">
+                                        <form action="login" method="POST" class="form-horizontal loginFrm">
                                             <div class="control-group">								
-                                                <input type="text" id="inputEmail" placeholder="Email">
+                                                <input type="text" name="email" id="inputEmail" placeholder="Email">
                                             </div>
                                             <div class="control-group">
-                                                <input type="password" id="inputPassword" placeholder="Password">
+                                                <input type="password" name="password" id="inputPassword" placeholder="Password">
                                             </div>
                                             <div class="control-group">
                                                 <label class="checkbox">
                                                     <input type="checkbox"> Remember me
                                                 </label>
                                             </div>
-                                        </form>		
-                                        <button type="submit" class="btn btn-success">Sign in</button>
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                            <input type="hidden" name="refererUri" value="${pageContext.request.servletPath}"/>
+                                            <button type="submit" class="btn btn-success">Sign in</button>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                        </form>
                                     </div>
                                 </div>
                             </li>

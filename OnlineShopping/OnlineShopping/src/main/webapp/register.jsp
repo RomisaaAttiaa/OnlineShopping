@@ -1,5 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -33,11 +32,6 @@
         <style type="text/css" id="enject"></style>
     </head>
     <body>
-
-        <c:if test="!${!empty sessionScope.user}">
-            <c:redirect url="home.jsp"/>
-        </c:if>
-
         <div id="header">
             <div class="container">
                 <div id="welcomeLine" class="row">
@@ -78,35 +72,31 @@
                         <ul id="topMenu" class="nav pull-right">
                             <li class=""><a href="special_offer.html">Specials Offer</a></li>
                             <li class=""><a href="normal.html">Delivery</a></li>
-                            <!-- <li class=""><a href="contact.html">Contact</a></li> -->
-                            <li class="">
-                                <!-- ================== Sign up =======================-->
-                                <a href="register.jsp" role="button" style="padding-right:0"><span class="btn btn-large btn-success">Sign up</span></a>
-                            </li>
+                            <li class=""><a href="contact.html">Contact</a></li>
                             <li class="">
                                 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
                                 <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h3>Login Block</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="login" method="POST" class="form-horizontal loginFrm">
+                                        <form class="form-horizontal loginFrm">
                                             <div class="control-group">								
-                                                <input type="text" name="email" id="inputEmail" placeholder="Email">
+                                                <input type="text" id="inputEmail" placeholder="Email">
                                             </div>
-                                            <div class="control-group">
-                                                <input type="password" name="password" id="inputPassword" placeholder="Password">
+                                            <div class="
+                                                 control-group">
+                                                <input type="password" id="inputPassword" placeholder="Password">
                                             </div>
                                             <div class="control-group">
                                                 <label class="checkbox">
                                                     <input type="checkbox"> Remember me
                                                 </label>
                                             </div>
-                                            <input type="hidden" name="refererUri" value="${pageContext.request.servletPath}"/>
-                                            <button type="submit" class="btn btn-success">Sign in</button>
-                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                        </form>	
+                                        </form>		
+                                        <button type="submit" class="btn btn-success">Sign in</button>
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                     </div>
                                 </div>
                             </li>
@@ -184,58 +174,88 @@
                     <div class="span9">
                         <ul class="breadcrumb">
                             <li><a href="home.html">Home</a> <span class="divider">/</span></li>
-                            <li class="active">Login</li>
+                            <li class="active">Registration</li>
                         </ul>
-                        <h3> Login</h3>	
-                        <hr class="soft"/>
+                        <h3> Registration</h3>	
+                        <div class="well">
+                            <!--
+                            <div class="alert alert-info fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div>
+                            <div class="alert fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div>
+                             <div class="alert alert-block alert-error fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                             </div> -->
+                            <form class="form-horizontal" action="signup" method="POST">
+                                <h4>Your personal information</h4>
 
-                        <div class="row">
-                            <div class="span4">
-                                <div class="well">
-                                    <h5>CREATE YOUR ACCOUNT</h5><br/>
-                                    Enter your e-mail address to create an account.<br/><br/><br/>
-                                    <form action="register.html">
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputEmail0">E-mail address</label>
-                                            <div class="controls">
-                                                <input class="span3"  type="text" id="inputEmail0" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="controls">
-                                            <button type="submit" class="btn block">Create Your Account</button>
-                                        </div>
-                                    </form>
+                                <input type="hidden" name="refererUri" value="${header.referer}"/>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="input_email">Email <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="email" id="input_email" placeholder="Email">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="span1"> &nbsp;</div>
-                            <div class="span4">
-                                <div class="well">
-                                    <h5>ALREADY REGISTERED ?</h5>
-                                    <form>
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputEmail1">Email</label>
-                                            <div class="controls">
-                                                <input class="span3"  type="text" id="inputEmail1" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="inputPassword1">Password</label>
-                                            <div class="controls">
-                                                <input type="password" class="span3"  id="inputPassword1" placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <button type="submit" class="btn">Sign in</button> <a href="forgetpass.html">Forget password?</a>
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputFname">Name <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="name" id="inputFname" placeholder="Name">
+                                    </div>
+                                </div>	  
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword1">Password <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="password" name="password" id="inputPassword1" placeholder="Password">
+                                    </div>
+                                </div>	  
+                                <div class="control-group">
+                                    <label class="control-label" for="inputDate">Date of Birth <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="date" name="birthdate" id="inputDate">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>	
+                                <div class="alert alert-block alert-error fade in">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                </div>	
+                                <div class="control-group">
+                                    <label class="control-label" for="inputJob">Job <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="job" id="inputJob" placeholder="Job">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="address">Address<sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="address" id="address" placeholder="Adress"> <span>Street address, P.O. box, company name, c/o</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputCreditLimit">Credit Limit <sup>*</sup></label>
+                                    <div class="controls">
+                                        <input type="text" name="credit_limit" id="inputCreditLimit" placeholder="Credit Limit">
+                                    </div>
+                                </div><p><sup>*</sup>Required field	</p>
+
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input type="hidden" name="email_create" value="1">
+                                        <input type="hidden" name="is_new_customer" value="1">
+                                        <input class="btn btn-large btn-success" type="submit" value="Register">
+                                    </div>
+                                </div>		
+                            </form>
+                        </div>
 
                     </div>
-                </div></div>
+                </div>
+            </div>
         </div>
         <!-- MainBody End ============================= -->
         <!-- Footer ================================================================== -->
@@ -244,11 +264,11 @@
                 <div class="row">
                     <div class="span3">
                         <h5>ACCOUNT</h5>
-                        <a href="login.jsp">YOUR ACCOUNT</a>
-                        <a href="login.jsp">PERSONAL INFORMATION</a> 
-                        <a href="login.jsp">ADDRESSES</a> 
-                        <a href="login.jsp">DISCOUNT</a>  
-                        <a href="login.jsp">ORDER HISTORY</a>
+                        <a href="login.html">YOUR ACCOUNT</a>
+                        <a href="login.html">PERSONAL INFORMATION</a> 
+                        <a href="login.html">ADDRESSES</a> 
+                        <a href="login.html">DISCOUNT</a>  
+                        <a href="login.html">ORDER HISTORY</a>
                     </div>
                     <div class="span3">
                         <h5>INFORMATION</h5>
