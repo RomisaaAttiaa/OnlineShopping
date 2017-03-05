@@ -30,7 +30,7 @@ public class DBHandler {
 
     Connection connection;
     PreparedStatement preparedStatement;
- 
+
     public DBHandler() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -89,7 +89,14 @@ public class DBHandler {
             return false;
         }
     }
+    public boolean updateProductsStockQuantity(ArrayList<Product> products){
 
+        for (Product product : products) {
+            System.out.println(product.getStockQuantity());
+            System.out.println(decreaseProductQuantity(product.getId(), product.getStockQuantity())== true);
+        }
+        return true;
+    }
     public boolean deleteProduct(int productId) {
         try {
             preparedStatement = (PreparedStatement) connection.prepareStatement("DELETE FROM Product WHERE id = ?");
@@ -103,7 +110,8 @@ public class DBHandler {
 
     public boolean decreaseProductQuantity(int productId, int amount) {
         try {
-            preparedStatement = (PreparedStatement) connection.prepareStatement("UPDATE Product SET quantity_in_stock = quantity_in_stock - ? WHERE id = ?");
+          //preparedStatement = (PreparedStatement) connection.prepareStatement("UPDATE Product SET quantity_in_stock = quantity_in_stock - ? WHERE id = ?");
+          preparedStatement = (PreparedStatement) connection.prepareStatement("UPDATE Product SET quantity_in_stock = ? WHERE id = ?");
 
             preparedStatement.setInt(1, amount);
             preparedStatement.setInt(2, productId);
@@ -182,7 +190,7 @@ public class DBHandler {
 
             preparedStatement.setString(1, userEmail);
             preparedStatement.setInt(2, item.getProduct().getId());
-            preparedStatement.setInt(3, item.getProduct().getStockQuantity());
+            preparedStatement.setInt(3, item.getQuantity());
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -198,7 +206,7 @@ public class DBHandler {
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<CartItem> cartItemsList = new ArrayList<>();
             while (resultSet.next()) {
-                cartItemsList.add(new CartItem(resultSet.getInt("id"), getProduct(resultSet.getInt("product_id")), resultSet.getInt("quantity")));
+                cartItemsList.add(new CartItem(resultSet.getInt("product_id"), getProduct(resultSet.getInt("product_id")), resultSet.getInt("quantity")));
             }
             return cartItemsList;
         } catch (SQLException ex) {
@@ -245,14 +253,31 @@ public class DBHandler {
         }
     }
 //    end of Aya
-//    ==============================   
+//    ==============================
 //    start of Eslam
     //Search in product table
+
+    public ArrayList<Product> searchAllProducts(String searchString) {
+            ArrayList<Product> products = new ArrayList<>();
+            try {
+                preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? ");
+                preparedStatement.setString(1, searchString + "%");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    products.add(new Product(resultSet.getFloat("price"), resultSet.getInt("quantity_in_stock"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("category"), resultSet.getString("url")));
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return products;
+        }
+
+
 
     public ArrayList<Product> searchProductByCategory(String searchString, String category) {
         ArrayList<Product> products = new ArrayList<>();
         try {
-            preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND category = ?");
+                        preparedStatement = (PreparedStatement) connection.prepareStatement("SELECT * FROM product WHERE name LIKE ? AND category Like ? ");
             preparedStatement.setString(1, searchString + "%");
             preparedStatement.setString(2, category);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -349,10 +374,10 @@ public class DBHandler {
         }
     }
 
-    public boolean decreaseCreditLimit(String email, int amount) {
+    public boolean decreaseCreditLimit(String email, float amount) {
         try {
             preparedStatement = (PreparedStatement) connection.prepareStatement("UPDATE user set credit_limit = credit_limit-? where email = ?");
-            preparedStatement.setInt(1, amount);
+            preparedStatement.setFloat(1, amount);
             preparedStatement.setString(2, email.toLowerCase());
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -396,6 +421,15 @@ public class DBHandler {
             return false;
         }
     }
+
+    public boolean insertOrders(ArrayList<Order> orders, String email){
+            for (Order order : orders) {
+                if(!insertOrder(order, email))
+                    return false;
+            }
+            return true;
+        }
+
 
     public Order getOrder(int id) {
         try {

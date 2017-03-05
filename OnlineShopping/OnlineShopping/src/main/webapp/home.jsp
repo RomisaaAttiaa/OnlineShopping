@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : home
     Created on : 01-Mar-2017, 20:00:39
     Author     : toqae
@@ -29,13 +29,13 @@
         <!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
         <script src="themes/js/less.js" type="text/javascript"></script> -->
 
-        <!-- Bootstrap style --> 
+        <!-- Bootstrap style -->
         <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
         <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
-        <!-- Bootstrap style responsive -->	
+        <!-- Bootstrap style responsive -->
         <link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
         <link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
-        <!-- Google-code-prettify -->	
+        <!-- Google-code-prettify -->
         <link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet"/>
         <!-- fav and touch icons -->
         <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
@@ -51,7 +51,7 @@
             <div class="container">
                 <div class="row">
                     <c:if test="${empty sessionScope.logged}">
-                        <jsp:include page="logged_header.jsp"/>
+                        <jsp:include page="not_logged_header.jsp"/>
                     </c:if>
 
                     <c:if test="${!empty sessionScope.logged}">
@@ -68,7 +68,7 @@
                                 <c:if test="${empty sessionScope.products}">
                                     0
                                 </c:if>
-                                Items in your cart  
+                                Items in your cart
 
                                 <c:if test="${!empty sessionScope.logged}">
                                     <span class="badge badge-warning pull-right"><c:out value="${logged.creditLimit}"/> $</span>
@@ -81,10 +81,10 @@
                             <li><a href="HomeServlet?category=clothes"> CLOTHES</a></li>
                             <li><a href="HomeServlet?category=books">BOOKS</a></li>
                         </ul>
-                        <br/>	
+                        <br/>
                     </div>
                     <!-- Sidebar end=============================================== -->
-                    <div class="span9">		
+                    <div class="span9">
                         <h4>Category Products </h4>
                         <ul class="thumbnails">
                             <c:forEach items="${requestScope.homeProducts}" var="product">
@@ -94,11 +94,11 @@
                                         <a  href='product_details.html?pId="${product.id}"'><img src="${product.url}" alt=""/></a>
                                         <div class="caption">
                                             <h5><c:out value="${product.name}"/></h5>
-                                            <p> 
+                                            <p>
                                                 <c:out value="${product.description}"/>
                                             </p>
 
-                                            <h4 style="text-align:center"><a class="btn" href="product_details.html?pId=${product.id}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="AddCartServlet?pId=${product.id}">Add to <i class="icon-shopping-cart"></i></a></h4>
+                                            <h4 style="text-align:center"><a class="btn" href="ProductDetails?pId=${product.id}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="AddCartServlet?pId=${product.id}&pQuantity=1">Add to <i class="icon-shopping-cart"></i></a></h4>
                                         </div>
                                     </div>
                                 </li>
@@ -109,8 +109,8 @@
                                                                 <a  href="product_details.html"><img src="themes/images/products/7.jpg" alt=""/></a>
                                                                 <div class="caption">
                                                                     <h5>Product name</h5>
-                                                                    <p> 
-                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text.
                                                                     </p>
                                                                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                                                 </div>
@@ -121,8 +121,8 @@
                                                                 <a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
                                                                 <div class="caption">
                                                                     <h5>Product name</h5>
-                                                                    <p> 
-                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text.
                                                                     </p>
                                                                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                                                 </div>
@@ -133,8 +133,8 @@
                                                                 <a  href="product_details.html"><img src="themes/images/products/9.jpg" alt=""/></a>
                                                                 <div class="caption">
                                                                     <h5>Product name</h5>
-                                                                    <p> 
-                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text.
                                                                     </p>
                                                                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                                                 </div>
@@ -145,8 +145,8 @@
                                                                 <a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
                                                                 <div class="caption">
                                                                     <h5>Product name</h5>
-                                                                    <p> 
-                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text.
                                                                     </p>
                                                                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                                                 </div>
@@ -157,14 +157,14 @@
                                                                 <a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
                                                                 <div class="caption">
                                                                     <h5>Product name</h5>
-                                                                    <p> 
-                                                                        Lorem Ipsum is simply dummy text. 
+                                                                    <p>
+                                                                        Lorem Ipsum is simply dummy text.
                                                                     </p>
                                                                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
                                                                 </div>
                                                             </div>
                                                         </li>-->
-                        </ul>	
+                        </ul>
 
                     </div>
                 </div>
@@ -177,33 +177,33 @@
                     <div class="span3">
                         <h5>ACCOUNT</h5>
                         <a href="login.jsp">YOUR ACCOUNT</a>
-                        <a href="login.jsp">PERSONAL INFORMATION</a> 
-                        <a href="login.jsp">ADDRESSES</a> 
-                        <a href="login.jsp">DISCOUNT</a>  
+                        <a href="login.jsp">PERSONAL INFORMATION</a>
+                        <a href="login.jsp">ADDRESSES</a>
+                        <a href="login.jsp">DISCOUNT</a>
                         <a href="login.jsp">ORDER HISTORY</a>
                     </div>
                     <div class="span3">
                         <h5>INFORMATION</h5>
-                        <a href="contact.jsp">CONTACT</a>  
-                        <a href="register.html">REGISTRATION</a>  
-                        <a href="legal_notice.html">LEGAL NOTICE</a>  
-                        <a href="tac.html">TERMS AND CONDITIONS</a> 
+                        <a href="contact.jsp">CONTACT</a>
+                        <a href="register.html">REGISTRATION</a>
+                        <a href="legal_notice.html">LEGAL NOTICE</a>
+                        <a href="tac.html">TERMS AND CONDITIONS</a>
                         <a href="faq.html">FAQ</a>
                     </div>
                     <div class="span3">
                         <h5>OUR OFFERS</h5>
-                        <a href="#">NEW PRODUCTS</a> 
-                        <a href="#">TOP SELLERS</a>  
-                        <a href="special_offer.html">SPECIAL OFFERS</a>  
-                        <a href="#">MANUFACTURERS</a> 
-                        <a href="#">SUPPLIERS</a> 
+                        <a href="#">NEW PRODUCTS</a>
+                        <a href="#">TOP SELLERS</a>
+                        <a href="special_offer.html">SPECIAL OFFERS</a>
+                        <a href="#">MANUFACTURERS</a>
+                        <a href="#">SUPPLIERS</a>
                     </div>
                     <div id="socialMedia" class="span3 pull-right">
                         <h5>SOCIAL MEDIA </h5>
                         <a href="#"><img width="60" height="60" src="themes/images/facebook.png" title="facebook" alt="facebook"/></a>
                         <a href="#"><img width="60" height="60" src="themes/images/twitter.png" title="twitter" alt="twitter"/></a>
                         <a href="#"><img width="60" height="60" src="themes/images/youtube.png" title="youtube" alt="youtube"/></a>
-                    </div> 
+                    </div>
                 </div>
                 <p class="pull-right">&copy; Bootshop</p>
             </div><!-- Container End -->
@@ -235,7 +235,7 @@
                     <a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png" alt="bootstrap business templates"></a>
                     <a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png" alt="bootstrap business templates"></a>
                     <a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png" alt="bootstrap business templates"></a>
-                    <a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"></a>	
+                    <a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"></a>
                     <a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png" alt="bootstrap business templates"></a>
                     <a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png" alt="bootstrap business templates"></a>
                     <a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png" alt="bootstrap business templates"></a>

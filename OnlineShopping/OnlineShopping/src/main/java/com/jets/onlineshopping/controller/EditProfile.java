@@ -9,9 +9,13 @@ import com.jets.onlineshopping.dao.DBHandler;
 import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +25,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Aya
+ * @author Romisaa
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "EditProfile", urlPatterns = {"/EditProfile"})
+public class EditProfile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,39 +41,28 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBHandler db = new DBHandler();
-        String refererUri = request.getParameter("refererUri");
 
-        // Check if request comes from LoginServlet url
-        if (refererUri != null) {
-            String userEmail = request.getParameter("email");
-            User user = db.checkLogin(userEmail, request.getParameter("password"));
-            System.out.println(user == null);
-            if (user != null) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("logged", user);
-
-                ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-                HashMap<Integer, CartItem> cartItemsOnSession = new HashMap<>();
-                for (CartItem cartItem : cartItems) {
-                    cartItemsOnSession.put(cartItem.getProduct().getId(), cartItem);
-                }
-                session.setAttribute("products", cartItemsOnSession);
-                db.deleteAllCartItems(userEmail);
-                
-                if(refererUri.equals("/login.jsp")){
-                    response.sendRedirect("HomeServlet");
-                }
-                else{
-                    request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
-                }
-            } else {
-                // Wrong email or password
-                response.sendRedirect("HomeServlet");
-            }
-        } else {
-            response.sendRedirect("HomeServlet");
+        HttpSession session = request.getSession(true);
+        User sessionUser = (User) session.getAttribute("logged");
+        String email = request.getParameter("email");
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String birthdate = request.getParameter("birthdate");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        try {
+            date = formatter.parse(birthdate);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
         }
+        String job = request.getParameter("job");
+        String address = request.getParameter("address");
+        User user = new User(sessionUser.getEmail(), name, password, date, job,sessionUser.getCreditLimit(), address,sessionUser.getRole());
+        
+        new DBHandler().updateUser(user);
+        session.setAttribute("logged", user);
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

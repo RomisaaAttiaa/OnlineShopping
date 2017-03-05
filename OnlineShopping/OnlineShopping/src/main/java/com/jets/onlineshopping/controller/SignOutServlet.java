@@ -7,11 +7,10 @@ package com.jets.onlineshopping.controller;
 
 import com.jets.onlineshopping.dao.DBHandler;
 import com.jets.onlineshopping.dto.CartItem;
+import com.jets.onlineshopping.dto.Product;
 import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Aya
+ * @author Eslam
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SignOutServlet", urlPatterns = {"/SignOutServlet"})
+public class SignOutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,39 +36,32 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User logged;
+        ArrayList<CartItem> products;
         DBHandler db = new DBHandler();
-        String refererUri = request.getParameter("refererUri");
-
-        // Check if request comes from LoginServlet url
-        if (refererUri != null) {
-            String userEmail = request.getParameter("email");
-            User user = db.checkLogin(userEmail, request.getParameter("password"));
-            System.out.println(user == null);
-            if (user != null) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("logged", user);
-
-                ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-                HashMap<Integer, CartItem> cartItemsOnSession = new HashMap<>();
-                for (CartItem cartItem : cartItems) {
-                    cartItemsOnSession.put(cartItem.getProduct().getId(), cartItem);
-                }
-                session.setAttribute("products", cartItemsOnSession);
-                db.deleteAllCartItems(userEmail);
-                
-                if(refererUri.equals("/login.jsp")){
-                    response.sendRedirect("HomeServlet");
-                }
-                else{
-                    request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
-                }
-            } else {
-                // Wrong email or password
-                response.sendRedirect("HomeServlet");
-            }
-        } else {
-            response.sendRedirect("HomeServlet");
+        HttpSession session = request.getSession(false);
+        System.err.println("session:" + session);
+        if (session == null) {
+            System.err.println("session == null");
+            request.getRequestDispatcher("HomeServlet").forward(request, response);
+            return;
         }
+        if ((logged = (User) session.getAttribute("logged")) == null) {
+            System.err.println("no logged user");
+            request.getRequestDispatcher("HomeServlet").forward(request, response);
+            return;
+        }
+        if ((products = (ArrayList<CartItem>) session.getAttribute("products")) != null) {
+            for (CartItem item : products) {
+                db.insertCartItem(item, logged.getEmail());
+                System.err.println("inserting in DB");
+            }
+        }
+
+        session.invalidate();
+        System.err.println("session invalidated");
+        request.getRequestDispatcher("HomeServlet").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

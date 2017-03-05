@@ -6,25 +6,22 @@
 package com.jets.onlineshopping.controller;
 
 import com.jets.onlineshopping.dao.DBHandler;
-import com.jets.onlineshopping.dto.CartItem;
-import com.jets.onlineshopping.dto.User;
+import com.jets.onlineshopping.dto.Product;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Aya
+ * @author Eslam
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SearchServlet", urlPatterns = {"/SearchServlet"})
+public class SearchServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,39 +34,22 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBHandler db = new DBHandler();
-        String refererUri = request.getParameter("refererUri");
-
-        // Check if request comes from LoginServlet url
-        if (refererUri != null) {
-            String userEmail = request.getParameter("email");
-            User user = db.checkLogin(userEmail, request.getParameter("password"));
-            System.out.println(user == null);
-            if (user != null) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("logged", user);
-
-                ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-                HashMap<Integer, CartItem> cartItemsOnSession = new HashMap<>();
-                for (CartItem cartItem : cartItems) {
-                    cartItemsOnSession.put(cartItem.getProduct().getId(), cartItem);
-                }
-                session.setAttribute("products", cartItemsOnSession);
-                db.deleteAllCartItems(userEmail);
-                
-                if(refererUri.equals("/login.jsp")){
-                    response.sendRedirect("HomeServlet");
-                }
-                else{
-                    request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
-                }
-            } else {
-                // Wrong email or password
-                response.sendRedirect("HomeServlet");
-            }
-        } else {
+        String searchText = request.getParameter("searchText");
+        String searchCategory = request.getParameter("searchCategory");
+        ArrayList<Product> products;
+        
+        if(searchCategory==null || searchText == null){
             response.sendRedirect("HomeServlet");
+            return;
         }
+            
+        if (searchCategory.equalsIgnoreCase("ALL")) {
+            products = new DBHandler().searchAllProducts(searchText.toLowerCase());
+        } else {
+            products = new DBHandler().searchProductByCategory(searchText.toLowerCase(), searchCategory.toLowerCase());
+        }
+        request.setAttribute("homeProducts", products);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
