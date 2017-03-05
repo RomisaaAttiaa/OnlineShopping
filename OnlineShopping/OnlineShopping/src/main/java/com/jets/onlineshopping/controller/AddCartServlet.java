@@ -76,8 +76,9 @@ public class AddCartServlet extends HttpServlet {
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);
         //response.sendRedirect("home.jsp");  //Testing line
-}
 
+        //session.setAttribute("products", cartProducts);
+    }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 /**
  * Handles the HTTP <code>GET</code> method.
@@ -118,3 +119,4 @@ public class AddCartServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

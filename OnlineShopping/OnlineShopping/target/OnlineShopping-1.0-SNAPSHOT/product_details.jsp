@@ -1,16 +1,11 @@
 <%-- 
-    Document   : cart
-    Created on : 01-Mar-2017, 09:15:58
+    Document   : product_details
+    Created on : 01-Mar-2017, 03:19:24
     Author     : toqae
 --%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="com.jets.onlineshopping.dto.Product"%>
-<%@page import="com.jets.onlineshopping.dto.CartItem"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,6 +44,17 @@
             <div class="container">
                 <div id="welcomeLine" class="row">
                     <div class="span6">Welcome!<strong> User</strong></div>
+                    <div class="span6">
+                        <div class="pull-right">
+                            <a href="product_summary.html"><span class="">Fr</span></a>
+                            <a href="product_summary.html"><span class="">Es</span></a>
+                            <span class="btn btn-mini">En</span>
+                            <a href="product_summary.html"><span>&pound;</span></a>
+                            <span class="btn btn-mini">$155.00</span>
+                            <a href="product_summary.html"><span class="">$</span></a>
+                            <a href="cart.jsp"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart </span> </a> 
+                        </div>
+                    </div>
                 </div>
                 <!-- Navbar ================================================== -->
                 <div id="logoArea" class="navbar">
@@ -58,7 +64,7 @@
                         <span class="icon-bar"></span>
                     </a>
                     <div class="navbar-inner">
-                        <a class="brand" href="HomeServlet"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+                        <a class="brand" href="home.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
                         <form class="form-inline navbar-search" method="post" action="products.html" >
                             <input id="srchFld" class="srchTxt" type="text" />
                             <select class="srchTxt">
@@ -79,7 +85,7 @@
                                 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
                                 <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h3>Login Block</h3>
                                     </div>
                                     <div class="modal-body">
@@ -113,60 +119,85 @@
 
                     <div class="span9">
                         <ul class="breadcrumb">
-                            <li><a href="HomeServlet">Home</a> <span class="divider">/</span></li>
-                            <li class="active"> SHOPPING CART</li>
-                        </ul>
-                        <h3>  SHOPPING CART [ <small><c:out value="${fn:length(sessionScope.products)}"/> Item(s) </small>]<a href="BuyServlet" class="btn btn-large pull-right">BUY</a></h3>	
-                        <hr class="soft"/>	
+                            <li><a href="home.html">Home</a> <span class="divider">/</span></li>
+                            <li><a href="products.html">Products</a> <span class="divider">/</span></li>
+                            <li class="active">product Details</li>
+                        </ul>	
+                        <div class="row">	  
+                            <div id="gallery" class="span3">
+                                <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
+                                    <img src="themes/images/products/large/3.jpg" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
+                                </a>
+                                <div id="differentview" class="moreOptopm carousel slide">
 
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Description</th>
-                                    <th>Quantity/Update</th>
-                                    <th>Price</th>
-
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-             
-             <c:set var="count" value="${0}" /> 
-             
-             <c:forEach items="${sessionScope.products}" var="item">
-             <form action="RemoveCartItem" method="post">
-                 <tr>
-                                    <td> <img width="60" src="themes/images/products/4.jpg" alt=""/></td>
-                                    <td><c:out value="${item.value.product.name}"/><br/>
-                                         <c:out value="${item.value.product.description}"/></td>
-                                    <td>
-                                        <div class="input-append">
-                                            <input class="span1" style="max-width:34px" placeholder="${item.value.quantity}" id="appendedInputButtons" size="16" type="text">
-                                            <button class="btn" type="button"><i class="icon-minus"></i></button>
-                                            <button class="btn" type="button"><i class="icon-plus"></i></button>
-                                            <button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
-                                            <input type="hidden" name="pId" value="${item.key}"/>
+                                    <!--  
+                                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
+                                    -->
+                                </div>
+                            </div>
+                            <div class="span6">                                
+                                <h3><c:out value="${requestScope.product_details.name}"/></h3>
+                                <hr class="soft"/>
+                                <form class="form-horizontal qtyFrm" action="AddCartServlet" method="get">
+                                    <div class="control-group">
+                                        <label class="control-label"><span><c:out value="${requestScope.product_details.price}"/></span></label>
+                                        <div class="controls">
+                                            <input type="number" class="span1" name="pQuantity" placeholder="Qty." value="1" min="1" max ="<c:out value="${requestScope.product_details.stockQuantity}"/>"/>
                                         </div>
-                                    </td>
-                 </tr>
-             </form>
-             </c:forEach> 
-                              
-                                <tr>
-                                    <td colspan="4" style="text-align:right"><strong>TOTAL =</strong>  </td>
-                                    <td><c:out value="${item.value.product.price}"/></td>          
-             
-                                    <c:set var="count" value="${count+item.value.quantity*item.value.product.price}" scope="page"/>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <hr class="soft"/>
+                                        <input type="Hidden" name="pId" value="1"/>
+                                        <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                                    </div>
+                                </form>
 
-                        <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-                        <a href="BuyServlet?total=${pageScope.count}" class="btn btn-large pull-right">BUY</a>
+                            </div>
 
+                            <div class="span9">
+                                <ul id="productDetail" class="nav nav-tabs">
+                                    <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
+                                    <li><a href="#profile" data-toggle="tab">Related Products</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div class="tab-pane fade active in" id="home">
+                                        <h4>Product Information</h4>
+                                        <p><c:out value="${requestScope.product_details.description}"/></p>
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="profile">
+                                        <hr class="soft"/>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="blockView">
+                                                <ul class="thumbnails">
+                                                    <c:forEach items="${requestScope.related_products}" var="p">
+                                                        <li class="span3">
+                                                            <div class="thumbnail">
+                                                                <a href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+                                                                <div class="caption">
+                                                                    <h5><c:out value="${p.name}"/></h5>                                                                
+                                                                    <h4 style="text-align:center">
+                                                                        <a class="btn" href="product_details.html"> 
+                                                                            <i class="icon-zoom-in"></i></a> 
+                                                                        <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> 
+                                                                        <a class="btn btn-primary" href="">&euro;<c:out value="${p.price}"/></a>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </c:forEach>                                        
+                                                </ul>
+                                                <hr class="soft"/>
+                                            </div>
+                                        </div>
+                                        <br class="clr">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div></div>
+                </div> </div>
         </div>
         <!-- MainBody End ============================= -->
         <!-- Footer ================================================================== -->
