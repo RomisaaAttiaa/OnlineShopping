@@ -48,7 +48,7 @@ public class EditProfile extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String birthdate = request.getParameter("birthdate");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
         Date date = new Date();
         try {
             date = formatter.parse(birthdate);

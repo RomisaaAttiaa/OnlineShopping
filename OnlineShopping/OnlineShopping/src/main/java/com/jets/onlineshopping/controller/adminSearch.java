@@ -6,24 +6,22 @@
 package com.jets.onlineshopping.controller;
 
 import com.jets.onlineshopping.dao.DBHandler;
-import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.Product;
-import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Eslam
  */
-@WebServlet(name = "SignOutServlet", urlPatterns = {"/SignOutServlet"})
-public class SignOutServlet extends HttpServlet {
+@WebServlet(name = "/admin/search", urlPatterns = {"/admin/search"})
+public class adminSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,12 +34,22 @@ public class SignOutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        String searchText = request.getParameter("searchText");
+        String searchCategory = request.getParameter("searchCategory");
+        ArrayList<Product> products;
         
-        session.invalidate();
-        System.err.println("session invalidated");
-        request.getRequestDispatcher("HomeServlet").forward(request, response);
-
+        if(searchCategory==null || searchText == null){
+            response.sendRedirect("home");
+            return;
+        }
+            
+        if (searchCategory.equalsIgnoreCase("ALL")) {
+            products = new DBHandler().searchAllProducts(searchText.toLowerCase());
+        } else {
+            products = new DBHandler().searchProductByCategory(searchText.toLowerCase(), searchCategory.toLowerCase());
+        }
+        request.setAttribute("homeProducts", products);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

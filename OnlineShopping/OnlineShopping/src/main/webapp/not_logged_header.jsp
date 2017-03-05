@@ -4,6 +4,8 @@
     Author     : toqae
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,12 +21,12 @@
                     </a>
                     <div class="navbar-inner">
                         <a class="brand" href="home.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-                        <form class="form-inline navbar-search" method="post" action="products.html" >
-                            <input id="srchFld" class="srchTxt" type="text" />
-                            <select class="srchTxt">
+                        <form class="form-inline navbar-search" method="post" action="SearchServlet" >
+                            <input name="searchText" id="srchFld" class="srchTxt" type="text" />
+                            <select name="searchCategory" class="srchTxt">
                                 <option>All</option>
-                                <option>CLOTHES </option>
-                                <option>FOOD AND BEVERAGES </option>
+                                <option>mobiles</option>
+                                <option>Laptops</option>
                                 <option>HEALTH & BEAUTY </option>
                                 <option>SPORTS & LEISURE </option>
                                 <option>BOOKS & ENTERTAINMENTS </option>

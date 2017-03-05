@@ -1,0 +1,1 @@
+Login redirects to the referer - in case of home page, it should redirect to HomeServlet, not home.jsp (the referer).
