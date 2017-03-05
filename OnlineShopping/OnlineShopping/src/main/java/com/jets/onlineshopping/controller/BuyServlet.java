@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,40 +49,62 @@ public class BuyServlet extends HttpServlet {
         //check if user logged in 
         User user = (User) session.getAttribute("logged");
         if (user != null) {    //user logged in 
+            float total = Float.parseFloat(request.getParameter("total"));
+            if (user.getCreditLimit() < total) {
+                request.setAttribute("errorMsg", "No Enough Credit To Buy");
+                request.getRequestDispatcher("cart.jsp").forward(request, response);
+                return;
+            }
             //check if there is products on session
-            ArrayList<CartItem> cartProducts = (ArrayList<CartItem>) session.getAttribute("products");
-            if (cartProducts != null) {
-                if (cartProducts.size() > 0) { //there're products in the cart 
-                    //add them to db 
-                    for (CartItem cartProduct : cartProducts) {
+            HashMap<Integer, CartItem> cartPro = (HashMap<Integer, CartItem>) session.getAttribute("products");
+            ArrayList<Order> order = new ArrayList<>();
+            //this array is used for updating quantity in stock
+            ArrayList<Product> stockProducts = new ArrayList<>();
+            //error msg
+            String errormsg = "";
+            if (cartPro != null) {
+                if (!cartPro.isEmpty()) { //there're products in the cart 
+                    for (CartItem cartProduct : cartPro.values()) {
                         Product p = db.getProduct(cartProduct.getProduct().getId());
                         int stockQuantity = p.getStockQuantity();
-                        if (stockQuantity >= cartProduct.getQuantity()) {  //there's enough quantity in stock
-                            //insert products into database
-                            db.insertOrder(new Order(cartProduct.getProduct(), cartProduct.getQuantity(), new Date()), user.getEmail());
-                            //decrease quantity instock in db 
-                            p.setStockQuantity(stockQuantity - cartProduct.getQuantity());
-                            db.updateProduct(p);
-                        } else {  //there's not enough quantity in stock
-                            cartProduct.setQuantity(p.getStockQuantity());
+
+                        if (stockQuantity < cartProduct.getQuantity()) {
                             outOfStockProducts.add(cartProduct);
+                            errormsg += cartProduct.getProduct().getName() + ",";
+                        } else {
+                            //updated product stock quantiy
+                            p.setStockQuantity(stockQuantity - cartProduct.getQuantity());
+                            stockProducts.add(p);
+                            order.add(new Order(cartProduct.getProduct(), cartProduct.getQuantity(), new Date()));
                         }
                     }
 
                     if (outOfStockProducts.size() == 0) {
+                        //insert products into database
+                        db.insertOrders(order, user.getEmail());
+                        //decrease quantity instock in db 
+                        db.updateProductsStockQuantity(stockProducts);
+                        //decrease user credit limit
+                        db.decreaseCreditLimit(user.getEmail(), total);
                         //remove products from session 
                         session.removeAttribute("products");
-                        //response.sendRedirect("HomeServlet");
-                        response.sendRedirect("home.jsp");  //Testing Line
+                        //redirect to home page with success msg
+                        request.setAttribute("success", "Order done successfully");
+                        request.getRequestDispatcher("HomeServlet").forward(request, response);
+                        return;
                     } else {
-                        //update array in session 
-                        session.setAttribute("products", outOfStockProducts);
-                        response.sendRedirect("BuyOutOfStockServlet");
+                        //redirect to cart page again with error msg
+                        errormsg += "out of stock";
+                        request.setAttribute("errormsg", errormsg);
+                        request.getRequestDispatcher("cart.jsp").forward(request, response);
+                        return;
                     }
                 }
             }
         } else {  //user not logged in 
+            session.setAttribute("errorMsg", "You must be logged in first before buying");
             response.sendRedirect("LoginServlet");
+            return;
         }
     }
 

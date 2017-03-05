@@ -46,39 +46,36 @@ public class AddCartServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         DBHandler db = new DBHandler();
-        //ArrayList<CartItem> cartProducts = (ArrayList<CartItem>) session.getAttribute("products");
+        //get products hashmap from the session
         HashMap<Integer, CartItem> cartPro = (HashMap<Integer, CartItem>) session.getAttribute("products");
-        CartItem cItem = new CartItem(new Product(Integer.parseInt(request.getParameter("pId"))), Integer.parseInt(request.getParameter("pQuantity")));
-//        if (cartProducts == null) {   //no such attribute on session
-//            //intialize array
-//            cartProducts = new ArrayList<>();
-//        }
+        //get product ID from the request
+        int pId = Integer.parseInt(request.getParameter("pId"));
+        //get product from db
+        Product p = db.getProduct(pId);
+        //create cart item with details retreived from session 
+        CartItem cItem = new CartItem(p, Integer.parseInt(request.getParameter("pQuantity")));
         if (cartPro == null) {   //no such attribute on session
             //intialize HashMap
             cartPro = new HashMap<Integer, CartItem>();
         }
         //add item to array 
         if (!cartPro.containsKey(cItem.getProduct().getId())) { //new product in hashmap 
-            //cartProducts.add(cItem);
             cartPro.put(cItem.getProduct().getId(), cItem);
         } else {  //if this product is already in the cart increase only its quantity
             CartItem cartItem = cartPro.get(cItem.getProduct().getId());
             //update its quantity
             cartItem.setQuantity(cartItem.getQuantity() + cItem.getQuantity());
-            //replace the old value withh the new 
+            //replace the old value with the new 
             cartPro.replace(cItem.getProduct().getId(), cartItem);
         }
         db.updateProduct(cItem.getProduct());
         System.out.println(cItem.getQuantity());
         //add array on session 
-        //session.setAttribute("products", cartProducts);
         session.setAttribute("products", cartPro);
         //To redirect to same page
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);
         //response.sendRedirect("home.jsp");  //Testing line
-
-
 }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

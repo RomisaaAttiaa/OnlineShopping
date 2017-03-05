@@ -58,7 +58,7 @@
                         <span class="icon-bar"></span>
                     </a>
                     <div class="navbar-inner">
-                        <a class="brand" href="home.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+                        <a class="brand" href="HomeServlet"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
                         <form class="form-inline navbar-search" method="post" action="products.html" >
                             <input id="srchFld" class="srchTxt" type="text" />
                             <select class="srchTxt">
@@ -113,10 +113,10 @@
 
                     <div class="span9">
                         <ul class="breadcrumb">
-                            <li><a href="home.html">Home</a> <span class="divider">/</span></li>
+                            <li><a href="HomeServlet">Home</a> <span class="divider">/</span></li>
                             <li class="active"> SHOPPING CART</li>
                         </ul>
-                        <h3>  SHOPPING CART [ <small><c:out value="${fn:length(sessionScope.products)}"/> Item(s) </small>]<a href="BuyServlet" class="btn btn-large pull-right">BUY</a></h3>	
+                        <h3>  SHOPPING CART [ <small><c:out value="${fn:length(sessionScope.products)}"/> Item(s) </small>]</h3>	
                         <hr class="soft"/>	
 
                         <table class="table table-bordered">
@@ -138,29 +138,33 @@
              <form action="RemoveCartItem" method="post">
                  <tr>
                                     <td> <img width="60" src="themes/images/products/4.jpg" alt=""/></td>
-                                    <td><c:out value="${item.product.name}"/><br/>
-                                         <c:out value="${item.product.description}"/></td>
+                                    <td><c:out value="${item.value.product.name}"/><br/>
+                                         <c:out value="${item.value.product.description}"/></td>
                                     <td>
-                                        <div class="input-append"><input class="span1" style="max-width:34px" placeholder="${item.quantity}" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
-                                            <input type="hidden" name="pId" value="${item.product.id}"/>
+                                        <div class="input-append">
+                                            <input class="span1" style="max-width:34px" placeholder="${item.value.quantity}" id="appendedInputButtons" size="16" type="text">
+                                            <button class="btn" type="button"><i class="icon-minus"></i></button>
+                                            <button class="btn" type="button"><i class="icon-plus"></i></button>
+                                            <button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
+                                            <input type="hidden" name="pId" value="${item.key}"/>
                                         </div>
                                     </td>
-                                    <td><c:out value="${item.product.price}"/></td>          
+                                    <td><c:out value="${item.value.product.price}"/></td>          
              
-                                    <c:set var="count" value="${count+item.quantity*item.product.price}" />
+                                    <c:set var="count" value="${count+item.value.quantity*item.value.product.price}" scope="page"/>
                  </tr>
              </form>
              </c:forEach> 
                               
                                 <tr>
                                     <td colspan="4" style="text-align:right"><strong>TOTAL =</strong>  </td>
-                                    <td class="label label-important" style="display:block"> <strong> <c:out value="${count}" /> </strong></td>
+                                    <td class="label label-important" style="display:block"> <strong> <c:out value="${pageScope.count}" /> </strong></td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-                        <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+                        <a href="BuyServlet?total=${pageScope.count}" class="btn btn-large pull-right">BUY</a>
 
                     </div>
                 </div></div>

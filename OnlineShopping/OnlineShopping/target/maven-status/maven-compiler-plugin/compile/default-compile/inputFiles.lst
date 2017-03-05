@@ -1,11 +1,16 @@
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\LoginServlet.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\CartItem.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Product.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dao\DBHandler.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Coupon.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Order.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\AddCartServlet.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\User.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\SignUpServlet.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\BuyServlet.java
-E:\ITI Folder\JSP-SERVELT\GitHub\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\ProductDetails.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\LoginServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Coupon.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\CartItem.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\SearchServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\HomeServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\AddCartServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\SignUpServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\User.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\SignOutServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\RemoveCartItem.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dao\DBHandler.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\ProductDetails.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Order.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\EditProfile.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\controller\BuyServlet.java
+C:\Users\Eslam\Desktop\Tagmee3 El project\Final\OnlineShopping\OnlineShopping\OnlineShopping\src\main\java\com\jets\onlineshopping\dto\Product.java

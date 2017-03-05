@@ -10,6 +10,7 @@ import com.jets.onlineshopping.dto.CartItem;
 import com.jets.onlineshopping.dto.User;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,25 +44,31 @@ public class LoginServlet extends HttpServlet {
         if (refererUri != null) {
             String userEmail = request.getParameter("email");
             User user = db.checkLogin(userEmail, request.getParameter("password"));
+            System.out.println(user == null);
             if (user != null) {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("user", user);
+                session.setAttribute("logged", user);
 
                 ArrayList<CartItem> cartItems = db.getCartItems(userEmail);
-                Iterator<CartItem> iterator = cartItems.iterator();
-                while (iterator.hasNext()) {
-                    CartItem cartItem = iterator.next();
-                    session.setAttribute("Cart#" + cartItem.getId(), cartItem);
+                HashMap<Integer, CartItem> cartItemsOnSession = new HashMap<>();
+                for (CartItem cartItem : cartItems) {
+                    cartItemsOnSession.put(cartItem.getProduct().getId(), cartItem);
                 }
+                session.setAttribute("products", cartItemsOnSession);
                 db.deleteAllCartItems(userEmail);
-
-                request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
+                
+                if(refererUri.equals("/login.jsp")){
+                    response.sendRedirect("HomeServlet");
+                }
+                else{
+                    request.getRequestDispatcher(request.getParameter("refererUri")).forward(request, response);
+                }
             } else {
                 // Wrong email or password
-                response.sendRedirect("home.jsp");
+                response.sendRedirect("HomeServlet");
             }
         } else {
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("HomeServlet");
         }
     }
 

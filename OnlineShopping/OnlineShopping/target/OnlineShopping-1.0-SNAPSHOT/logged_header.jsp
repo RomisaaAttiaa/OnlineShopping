@@ -35,10 +35,10 @@
                         </form>
                         <ul id="topMenu" class="nav pull-right">
                             <li class=""><a href="contact.html">Contact-Us</a></li>
-                            <li class=""><a href="editProfile.html">Edit-Profile</a></li>
+                            <li class=""><a href="edit_profile.jsp">Edit-Profile</a></li>
                             <li class="">
                           
-                            <li class=""><a href="home.html">SignOut</a></li>
+                            <li class=""><a href="SignOutServlet">SignOut</a></li>
                             </li>
                         </ul>
                     </div>

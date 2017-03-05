@@ -34,7 +34,7 @@
     </head>
     <body>
 
-        <c:if test="!${!empty sessionScope.user}">
+        <c:if test="!${!empty sessionScope.logged}">
             <c:redirect url="home.jsp"/>
         </c:if>
 
