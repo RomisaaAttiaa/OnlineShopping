@@ -14,4 +14,8 @@ pom.properties
 hs_err_pid*
 /Test/nbproject/private/
 /Test/build/
+<<<<<<< HEAD
 /OnlineShopping/OnlineShopping/OnlineShopping/target/
+=======
+/OnlineShopping/OnlineShopping/target/
+>>>>>>> 38e0dbf4391a4e461c3e5153544805dbf9af8e41
