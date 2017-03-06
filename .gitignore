@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 *.lst
 pom.properties
@@ -15,3 +16,26 @@ hs_err_pid*
 /Test/nbproject/private/
 /Test/build/
 /OnlineShopping/OnlineShopping/OnlineShopping/target/
+=======
+*.class
+*.lst
+pom.properties
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/Test/nbproject/private/
+/Test/build/
+<<<<<<< HEAD
+/OnlineShopping/OnlineShopping/OnlineShopping/target/
+=======
+/OnlineShopping/OnlineShopping/target/
+>>>>>>> 38e0dbf4391a4e461c3e5153544805dbf9af8e41
+>>>>>>> caa331f3642bc5acecc282f25b4703aa975fb4ad
