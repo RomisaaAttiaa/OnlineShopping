@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +101,6 @@
                         <li><a href="products.html">Products</a> <span class="divider">/</span></li>
                         <li class="active">product Details</li>
                     </ul>	
-                    <div><a class="btn pull-right" href="RemoveProductButtonServlet?pId=${requestScope.edit_product.id}"><i class="icon-trash"></i></a></div>
                     <div class="row">	  
                         <div id="gallery" class="span3">
                             <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
@@ -110,82 +108,26 @@
                             </a>
                         </div>
                         <div class="span6">
-                            <form action="EditProductButtonServlet" method="get" id="edit_p">
-                                <h3><input type="text" name="pName" placeholder="Product Name" value="${requestScope.edit_product.name}"></h3>
+                            <form action="AddNewProductServlet" method="get" id="addform">
+                                <h3><input type="text" name="pName" placeholder="Product Name"></h3>
                                 <hr class="soft"/>
                                 <div>
                                     <label for="">Category</label>
                                     <select class="srchTxt" name="pCategory">
-                                        <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='All'}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>All</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='CLOTHES'}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>CLOTHES </option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                                <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='FOOD AND BEVERAGES '}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>FOOD AND BEVERAGES </option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                                <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='HEALTH & BEAUTY '}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>HEALTH & BEAUTY </option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                                <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='SPORTS & LEISURE '}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>SPORTS & LEISURE </option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                                <c:choose>
-                                            <c:when test="${requestScope.edit_product.category=='BOOKS & ENTERTAINMENTS '}">
-                                                <option selected="selected">
-                                                    ${requestScope.edit_product.category}
-                                                </option>
-                                            </c:when>    
-                                            <c:otherwise>
-                                                <option>BOOKS & ENTERTAINMENTS </option>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <option>All</option>
+                                        <option>CLOTHES </option>
+                                        <option>FOOD AND BEVERAGES </option>
+                                        <option>HEALTH & BEAUTY </option>
+                                        <option>SPORTS & LEISURE </option>
+                                        <option>BOOKS & ENTERTAINMENTS </option>
                                     </select>
                                     <hr>
                                 </div>
-
                                 <div class="control-group">
-                                    <span><input type="text" name="pPrice" placeholder="Price" value="${requestScope.edit_product.price}" style="width:10%; "></span>
+                                    <span><input type="text" name="pPrice" placeholder="Price" style="width:10%; "></span>
                                     <span>
-                                        <input type="hidden" name="pId" value="${requestScope.edit_product.id}">
-                                        <input class="quantity" type="text" name="pQuantity" placeholder="Quantity" value="${requestScope.edit_product.stockQuantity}" style="width:10%; margin-left:25%;"></span>
-                                    <button type="submit" class="btn btn-large btn-primary pull-right"> SAVE </button>
+                                        <input class="quantity" type="text" name="pQuantity" placeholder="Quantity" style="width:10%; margin-left:25%;"></span>
+                                    <button type="submit" class="btn btn-large btn-primary pull-right"> Add </button>
                                 </div>
                         </div>
 
@@ -198,7 +140,7 @@
                                 <div class="tab-pane fade active in" id="home">
 
                                     <p>
-                                        <textarea rows="20" cols="10" name ="pDescription" form="edit_p" placeholder="Product Description" style="width:90%; margin-left:3%">${requestScope.edit_product.description}</textarea>
+                                        <textarea rows="20" cols="10" name ="pDescription" form="addform" placeholder="Product Description" style="width:90%; margin-left:3%"></textarea>
                                     </p>
 
                                 </div>
