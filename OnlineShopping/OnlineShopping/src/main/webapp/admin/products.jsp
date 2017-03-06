@@ -60,6 +60,7 @@
                             </select> 
                             <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
                         </form>
+                    <ul class="nav pull-right"><li class=""><a href="signOut">SignOut</a></li></ul>
                     
                 </div>
             </div>

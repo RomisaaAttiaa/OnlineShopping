@@ -34,6 +34,11 @@ public class adminSearch extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //        !! TODO !!
+//        if(request.getAttribute("adminLogged")==null){
+//            response.sendRedirect("adminLogin");
+//            return;
+//        }
         String searchText = request.getParameter("searchText");
         String searchCategory = request.getParameter("searchCategory");
         ArrayList<Product> products;
